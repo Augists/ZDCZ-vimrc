@@ -4,10 +4,13 @@
 
 I use **vim-plug** to manage my plugs of vim
 
+
+
 ==**MY SYSTEM**==
 
 macOS Catalina 10.15.3
 
+ 
 
 * Why I use **vim** as my Code Editor?
 
@@ -17,5 +20,6 @@ I became to have a knowledge of the *new but old* editor, which comes with Unix 
 
 I really enjoy this code editor '**VIM**' cuz of its unrivaled & outstanding features. 
 
+ 
 
 **GOD**
