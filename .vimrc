@@ -235,12 +235,18 @@ Plug '/usr/local/opt/fzf'
 " syntax check
 Plug 'scrooloose/syntastic'
 
+" snippets
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+
 call plug#end()
 
 
-" ===
-" === NERDTree
-" ===
+" ================
+" === NERDTree ===
+" ================
 map nt :NERDTreeToggle<CR>
 let NERDTreeMapOpenExpl = ""
 let NERDTreeMapUpdir = ""
@@ -254,9 +260,9 @@ let NERDTreeMapCloseDir = "n"
 let NERDTreeMapChangeRoot = "y"
 
 
-" ===
-" === Syntastic
-" ===
+" =================
+" === Syntastic ===
+" =================
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -265,3 +271,19 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+
+
+" ===========================
+" === SnipMate & Snippets ===
+" ===========================
+" show available snips
+" use <C-R><tab> in insert mode
+:imap <C-J> <Plug>snipMateNextOrTrigger
+:smap <C-J> <Plug>snipMateNextOrTrigger
+
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
