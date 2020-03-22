@@ -1,14 +1,63 @@
-		"""""""""""""""""""""""""""""""""""""""""""""""""
-		"	 	__     _____ __  __ ____   ____			"
-		"		\ \ Y / /_ _|  \/  |  _ \ / ___|		"
-		"		 \ \ / / | || |\/| | |_) | |			"
-		"		Z \ V /  | || |  | |  _ <| |__			"
-		"		   \_/  |___|_| C|_|_| \_\\____|		"
-		"												"
-		""""""""""""""""""""'""""""""""""""""""""""""""""
+		 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+		 "	    	__     _____ __  __ ____   ____			  "
+		 "	      	\ \ Y / /_ _|  \/  |  _ \ / ___|		  "
+		 "	      	 \ \ / / | || |\/| | |_) | |			  "
+		 "	   	Z \ V /  | || |  | |  _ <| |__			  "
+		 "	   	   \_/  |___|_| C|_|_| \_\\____|		  "
+		 "	   		    					  "
+		 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 
+" ==================================================================== "
+" =========================== usage of vim =========================== "
+" ==================================================================== "
+" 
+" ===== normal =====
+" sp: compare file
+" nf: temp file
+" tt: open the directory of the file(cover)
+" tb: new tab
+" th: tab left
+" tl: tab right
+" -: search last and keep cursor at the center
+" =: search next and keep cursor at the center
+" <space><CR>: no highlight search
+" sl: new file on the left screen
+" su: new file on the top half screen
+" sr: open as same as the current on the right
+" <space>h: cursor to the left
+" <space>l: cursor to the right
+" <space>j: cursor down to the half screen
+" <space>k: cursor up to the half screen
+" <left>: narrow the screen with cursor
+" <right>: widen the screen with cursor
+" K: 5k
+" J: 5j
+" ;: :
+" <space>se: check spell of English
+" z=: look up the choices of wrong spell
+" <ctrl>a: select all and copy
+" f5: complie and run
+" nt: nerdtree
+"
+"
+" ===== insert =====
+" f<space><space>: find the next signal and change it
+" ({["' can auto match
+" <esc>N: auto completion
+" <tab>: if there are choices when auto completion, use tab to choose next
+" <shift><tab>: choose the last
+" main: for c and c++
+" #in<: for #include <>
+" <ctrl>a: select all and copy
+" <ctrl>j: snipmate and snipmate next
+" <ctrl>k: snipmate back
+
+
+" ==================================================================== "
+" ======================= configuration of vim ======================= "
+" ==================================================================== "
 set nocompatible	"remove the old compatible of vi
 
 """color and theme"""
@@ -23,7 +72,7 @@ set number			"show line number
 set relativenumber
 set ruler			"open the status bar ruler
 set showcmd
-"set cmdheight=1	"set the height of status bar 1
+"set cmdheight=2		"set the height of status bar 1
 set wildmenu
 set laststatus=2
 set scrolloff=5		"keep 5 lines distance from the top and the status bar
@@ -51,17 +100,17 @@ set foldlevel=99
 "compare files
 nnoremap cp :vert diffsplit
 "temp file
-map nf :tabnew .<CR>
+nmap nf :tabnew .<CR>
 "open the directory of this file
-map tt :e %:p:h/<CR>
+nmap tt :e %:p:h/<CR>
 "as the same as :Ex<CR>
 set autochdir
 
 
 """"""""""tab management""""""""""
-map tb :tabe<CR>
-map th :-tabnext<CR>
-map tl :+tabnext<CR>
+nmap tb :tabe<CR>
+nmap th :-tabnext<CR>
+nmap tl :+tabnext<CR>
 
 
 """""""""""match"""""""""""
@@ -76,11 +125,11 @@ set ignorecase
 set smartcase
 
 "search last
-noremap - Nzz
+nnoremap - Nzz
 "search next
-noremap = nzz
+nnoremap = nzz
 "no highlight search
-noremap <space><CR> :nohlsearch<CR>	
+nnoremap <space><CR> :nohlsearch<CR>	
 
 inoremap f<space><space> <esc>/<++><CR>:nohlsearch<CR>c4l
 
@@ -89,19 +138,19 @@ set rtp+=/usr/local/opt/fzf
 
 
 """"""""""split screen""""""""""
-map sl :Ve<CR>
-map su :Sex<CR>
-map sr :set splitright<CR>:vsplit<CR>
+nmap sl :Ve<CR>
+nmap su :Sex<CR>
+nmap sr :set splitright<CR>:vsplit<CR>
 "map sl :set nosplitright<CR>:vsplit<CR>
 "map su :set nosplitbelow<CR>:split<CR>
 
-map <space>h <C-w>h
-map <space>l <C-w>l
-map <space>j <C-w>j
-map <space>k <C-w>k
+nmap <space>h <C-w>h
+nmap <space>l <C-w>l
+nmap <space>j <C-w>j
+nmap <space>k <C-w>k
 
-map <right> :vertical resize+5<CR>
-map <left> :vertical resize-5<CR>
+nmap <right> :vertical resize+5<CR>
+nmap <left> :vertical resize-5<CR>
 "map <up> :res +5<CR>
 "map <down> :res -5<CR>
 
@@ -114,13 +163,14 @@ map <left> :vertical resize-5<CR>
 noremap K 5k
 noremap J 5j
 
-map s <nop>
-map ; :
+nmap s <nop>
+nmap ; :
 
 
 """"""""""no temp file""""""""""
 set nobackup
 set noswapfile
+set nowritebackup
 
 
 """"""""""auto indent""""""""""
@@ -159,22 +209,29 @@ filetype plugin indent on
 
 """"""""""spell check in English""""""""""
 "use <space>+sc to open and close the check(English)
-map <space>se :set spell!<CR>
+nmap <space>se :set spell!<CR>
 "use z= to look up the choices
 
 
-""""""""""code completement""""""""""
+""""""""""code completion""""""""""
 set completeopt=preview,menu
 set completeopt=longest,menu
 "when needing prompting, use esc + N
+"if there are choices, use tab to choose
 noremap N a<C-n>
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
 inoremap main main()<CR>{<CR>}<esc>Oreturn 0;<esc>O<esc>O
 inoremap #in< #include <><esc>i
 
 
 """"""""""select all and copy""""""""""
-map <C-a> ggVGY
-map! <C-A> <Esc>ggVGY
+nmap <C-a> ggVGY
+imap! <C-A> <Esc>ggVGY
 
 
 """"""""""complie and run""""""""""
@@ -280,10 +337,5 @@ let g:syntastic_check_on_wq = 0
 " use <C-R><tab> in insert mode
 :imap <C-J> <Plug>snipMateNextOrTrigger
 :smap <C-J> <Plug>snipMateNextOrTrigger
-
-
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+:imap <C-k> <Plug>snipMateBack
+:smap <C-k> <Plug>snipMateBack
