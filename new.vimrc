@@ -1,11 +1,11 @@
-		 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-		 "	            	__     _____ __  __ ____   ____			            "
-		 "	        	    \ \ Y / /_ _|  \/  |  _ \ / ___|		            "
-		 "	        	     \ \ / / | || |\/| | |_) | |		                "
-		 "                Z \ V /  | || |  | |  _ <| |__                 "
-		 "	   	             \_/  |___|_| C|_|_| \_\\____|		            "
-		 "	   		    					                                          "
-		 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+		 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+		 "	       __     _____ __  __ ____   ____	            "
+		 "	       \ \ Y / /_ _|  \/  |  _ \ / ___|		    "
+		 "	        \ \ / / | || |\/| | |_) | |		    "
+		 "             Z \ V /  | || |  | |  _ <| |__              "
+		 "	   	  \_/  |___|_| C|_|_| \_\\____|		    "
+		 "	   		    			            "
+		 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 
@@ -114,7 +114,7 @@ set scrolloff=5		"keep 5 lines distance from the top and the status bar
 set shiftwidth=4	"when using << or >>, move 4
 set softtabstop=4	"a backspace can delete 4 space
 set tabstop=4		"set the length of tab 4
-set wrap
+set wrap			"backspace between lines
 
 """encoding setting"""
 set encoding=utf-8	"utf8 encoding
@@ -129,7 +129,7 @@ set foldlevel=99
 """"""""""file directory""""""""""
 "compare files
 nnoremap cp :vert diffsplit
-"temp file
+"temp file (not cover)
 nmap nf :tabnew .<CR>
 "open the directory of this file
 nmap tt :e %:p:h/<CR>
@@ -159,7 +159,7 @@ nnoremap - Nzz
 "search next
 nnoremap = nzz
 "no highlight search
-nnoremap <space><CR> :nohlsearch<CR>	
+nnoremap <space><CR> :nohlsearch<CR>
 
 "inoremap f<space><space> <esc>/<++><CR>:nohlsearch<CR>c4l
 
@@ -198,6 +198,9 @@ noremap B 5b
 noremap H 0
 noremap L $
 
+nmap > >>
+nmap < <<
+
 nmap S :w<CR>
 nmap s <nop>
 nmap Q :q<CR>
@@ -222,23 +225,24 @@ set autoindent
 "inoremap [ []<ESC>i
 "inoremap " "" <ESC>i
 "inoremap ' ''<ESC>i
-:inoremap ( ()<++><ESC>F)i
-:inoremap ) <c-r>=ClosePair(')')<CR>
-:inoremap { {<CR>}<++><ESC>O
-:autocmd Filetype go inoremap ;{ {}<CR><++><ESC>kf}a
-:autocmd Filetype go inoremap : :=
-:inoremap } <c-r>=ClosePair('}')<CR>
-:inoremap [ []<++><ESC>F]i
-:inoremap ] <c-r>=ClosePair(']')<CR>
-:inoremap " "" <++><ESC>F"i
-:inoremap ' '' <++><ESC>F'i
-function! ClosePair(char)
-    if getline('.')[col('.') - 1] == a:char
-        return "\<Right>"
-    else
-        return a:char
-    endif
-endfunction
+
+":inoremap ( ()<++><ESC>F)i
+":inoremap ) <c-r>=ClosePair(')')<CR>
+":inoremap { {<CR>}<++><ESC>O
+":autocmd Filetype go inoremap ;{ {}<CR><++><ESC>kf}a
+":autocmd Filetype go inoremap : :=
+":inoremap } <c-r>=ClosePair('}')<CR>
+":inoremap [ []<++><ESC>F]i
+":inoremap ] <c-r>=ClosePair(']')<CR>
+":inoremap " "" <++><ESC>F"i
+":inoremap ' '' <++><ESC>F'i
+"function! ClosePair(char)
+"    if getline('.')[col('.') - 1] == a:char
+"        return "\<Right>"
+"    else
+"        return a:char
+"    endif
+"endfunction
 
 
 """"""""""file type""""""""""
@@ -255,8 +259,8 @@ func SetTitle()
 	if &filetype == 'sh'
 		call setline(1,          "\#########################################################################")
 		call append(line("."),   "\#    File Name: ".expand("%"))
-		call append(line(".")+1, "\#       Author: huangjinqiang")
-		call append(line(".")+2, "\#        Email: ligelaige@gmail.com")
+		call append(line(".")+1, "\#       Author: Augists")
+		call append(line(".")+2, "\#        Email: awzyc2010@163.com")
 		call append(line(".")+3, "\# Created Time: ".strftime("%c"))
 		call append(line(".")+4, "\#########################################################################")
 		call append(line(".")+5, "\#!/bin/bash")
@@ -264,8 +268,8 @@ func SetTitle()
 	elseif &filetype == 'python'
 		call setline(1,          "\#########################################################################")
 		call append(line("."),   "\#    File Name: ".expand("%"))
-		call append(line(".")+1, "\#       Author: huangjinqiang")
-		call append(line(".")+2, "\#        Email: ligelaige@gmail.com")
+		call append(line(".")+1, "\#       Author: Augists")
+		call append(line(".")+2, "\#        Email: awzyc2010@163.com")
 		call append(line(".")+3, "\# Created Time: ".strftime("%c"))
 		call append(line(".")+4, "\#########################################################################")
 		call append(line(".")+5, "\#!/usr/bin/python")
@@ -273,8 +277,8 @@ func SetTitle()
 	else
 		call setline(1,			 "\/************************************************************************")
 		call append(line("."),   " *	>    File Name: ".expand("%"))
-		call append(line(".")+1, " *	>       Author: huangjinqiang")
-		call append(line(".")+2, " *	>        Email: ligelaige@gmail.com")
+		call append(line(".")+1, " *	>       Author: Augists")
+		call append(line(".")+2, " *	>        Email: awzyc2010@163.com")
 		call append(line(".")+3, " *	> Created Time: ".strftime("%c"))
 		call append(line(".")+4, " ************************************************************************/")
 		call append(line(".")+5, "")
@@ -357,11 +361,11 @@ func! CompileRunGcc()
         exec "!time ./%<"
 		":sp
 		":res -10
-    elseif &filetype == 'go' 
-        exec "!time go run %" 
+    elseif &filetype == 'go'
+        exec "!time go run %"
 		"exec ":GoRun %"
-    elseif &filetype == 'java' 
-        exec "!javac %" 
+    elseif &filetype == 'java'
+        exec "!javac %"
         exec "!time	java %<"
 	elseif &filetype == 'python'
 		silent! exec "!clear"
@@ -370,6 +374,8 @@ func! CompileRunGcc()
 		exec "!safari % &"
     elseif &filetype == 'sh'
         :!./%
+	elseif &filetype == 'markdown'
+		exec "MarkdownPreview"
     endif
 endfunc
 
@@ -389,8 +395,8 @@ set history=500		"history number
 
 
 """""""""""markdown shortcut"""""""""
-inoremap ;f <esc>/<++><CR>:nohlsearch<CR>c4l
-"autocmd Filetype markdown inoremap ;f <esc>/<++><CR>:nohlsearch<CR>c4l
+"noremap ;f <esc>/<++><CR>:nohlsearch<CR>c4l
+autocmd Filetype markdown inoremap ;f <esc>/<++><CR>:nohlsearch<CR>c4l
 autocmd Filetype markdown inoremap ;n ---<Enter><Enter>
 autocmd Filetype markdown inoremap ;b **** <++><esc>F*hi
 autocmd Filetype markdown inoremap ;s ~~~~ <++><esc>F~hi
@@ -437,23 +443,68 @@ Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 
 " markdown
-Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle' }
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() } }
+Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['vim-plug', 'markdown'] }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for': ['vim-plug', 'markdown'] }
 "Plug 'vimwiki/vimwiki'
-Plug 'dkarter/bullets.vim'
+Plug 'dkarter/bullets.vim', { 'for': ['markdown', 'vim-plug'] }
+Plug 'lervag/vimtex', { 'for': ['markdown', 'vim-plug'] }
 
 " ranger in vim
 "Plug 'francoiscabrol/ranger.vim'
 
+" underline the word under the cursor
+Plug 'itchyny/vim-cursorword'
+
+" multiple section
+"Plug 'terryma/vim-multiple-cursors'
+"https://github.com/terryma/vim-multiple-cursors
+
+" auto pairs
+Plug 'jiangmiao/auto-pairs'
+
 " go plug
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-Plug 'tpope/vim-surround' " type yskw' to wrap the word with '' or type cs'` to change 'word' to `word`
-Plug 'tpope/vim-commentary' 
+" python
+"Plug 'vim-scripts/indentpython.vim'
+"Plug 'tmhedberg/SimpylFold'
+Plug 'nathanaelkane/vim-indent-guides', { 'for': ['python', 'html'] }
 
+" html
+"Plug 'mattn/emmet-vim'
+"Plug 'xml.vim'
+"Plug 'othree/html5.vim'
+"Plug 'gko/vim-coloresque', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
+
+" javascript
+"Plug 'pangloss/vim-javascript'
+
+" surround and commentary from tpope
+Plug 'tpope/vim-surround' " type yskw' to wrap the word with '' or type cs'` to change 'word' to `word`
+Plug 'tpope/vim-commentary'	"gc
+
+" highlight the whitespace at the end of each line
+Plug 'ntpeters/vim-better-whitespace'
+
+" goyo for focus
 Plug 'junegunn/goyo.vim'	"use :GoYo or :GoYo! to turn on or turn off
 
+" easy align
+"Plug 'godlygeek/tabular' " type ;Tabularize /= to align the =
+
+" Bookmarks
+"Plug 'kshenoy/vim-signature'
+
 call plug#end()
+
+
+" ===============
+" === airline ===
+" ===============
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
+"let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 
 " ================
@@ -547,7 +598,7 @@ autocmd Filetype markdown nmap <space>tm :TableModeToggle<CR>
 " ========================
 " set to 1, nvim will open the preview window after entering the markdown buffer
 " default: 0
-let g:mkdp_auto_start = 1
+let g:mkdp_auto_start = 0
 
 " set to 1, the nvim will auto close current preview window when change
 " from markdown buffer to another buffer
@@ -640,8 +691,22 @@ let g:mkdp_page_title = '「${name}」'
 "map <,>r :Ranger<CR>
 "https://github.com/francoiscabrol/ranger.vim
 
-
 " ==============
 " === bullet ===
 " ==============
 " https://github.com/dkarter/bullets.vim
+
+" =====================
+" === indent guides ===
+" =====================
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=3
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=4
+
+
+" ======================================
+" === whitespace auto delete on save ===
+" ======================================
+let g:better_whitespace_ctermcolor='red'
+let g:strip_whitespace_on_save = 1
