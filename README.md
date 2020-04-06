@@ -7,7 +7,7 @@ I use **vim-plug** to manage my plugs of vim
 
 ==**MY SYSTEM**==
 
-macOS Catalina 10.15.3
+macOS Catalina 10.15.4
 
 
 ---
@@ -22,5 +22,4 @@ I really enjoy this code editor '**VIM**' cuz of its unrivaled & outstanding fea
 
 ---
 
-
-**GOD**
+Now here is a markdown file about the **usage of my vim**. 
