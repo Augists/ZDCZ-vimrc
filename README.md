@@ -4,6 +4,14 @@ Here is my **.vimrc**
 
 I use **vim-plug** to manage my plugins of vim
 
+## preview
+
+![](https://github.com/Augists-ZDCZ/ZDCZ-vimrc/blob/master/1.png)
+
+![](https://github.com/Augists-ZDCZ/ZDCZ-vimrc/blob/master/2.png)
+
+## version
+
 == **MY SYSTEM** ==
 
 macOS Catalina 10.15.4
@@ -16,6 +24,6 @@ Also python version 3.8.1
 
 But no python support for vim😂
 
----
+## usage
 
-Now here is a markdown file about the **usage of my vim**. 
+Now here is a markdown file about the [**usage of my vim**](https://github.com/Augists-ZDCZ/ZDCZ-vimrc/blob/master/usage_of_vim.md). 
