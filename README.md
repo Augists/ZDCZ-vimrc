@@ -1,24 +1,20 @@
 # ZDCZ-vimrc
 
-## Here is my **.vimrc**
+Here is my **.vimrc**
 
-I use **vim-plug** to manage my plugs of vim
+I use **vim-plug** to manage my plugins of vim
 
-
-==**MY SYSTEM**==
+== **MY SYSTEM** ==
 
 macOS Catalina 10.15.4
 
+vim 8.1.2292
 
----
+ranger 1.9.3 (python version 2.7.16 default by Apple)
 
-- Why I use **vim** as my Code Editor?
+Also python version 3.8.1
 
-One day, I occasionally find an up **TheCW** in bilibili, whose videos greatly attract me.
-
-I became to have a knowledge of the *new but old* editor, which comes with Unix but I never noticed that before. 
-
-I really enjoy this code editor '**VIM**' cuz of its unrivaled & outstanding features. 
+But no python support for vim😂
 
 ---
 
