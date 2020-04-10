@@ -1,14 +1,14 @@
 # ZDCZ-vimrc
 
-Here is my **.vimrc**
+Here is my [**.vimrc**](https://github.com/Augists-ZDCZ/ZDCZ-vimrc/blob/master/new.vimrc)
 
 I use **vim-plug** to manage my plugins of vim
 
 ## preview
 
-![](https://github.com/Augists-ZDCZ/ZDCZ-vimrc/blob/master/1.png)
+![1](https://github.com/Augists-ZDCZ/ZDCZ-vimrc/blob/master/1.png)
 
-![](https://github.com/Augists-ZDCZ/ZDCZ-vimrc/blob/master/2.png)
+![2](https://github.com/Augists-ZDCZ/ZDCZ-vimrc/blob/master/2.png)
 
 ## version
 
