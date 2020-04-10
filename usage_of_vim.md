@@ -5,11 +5,13 @@
 
 ## file directory
 
-| Key  | Action                               |
-|------|--------------------------------------|
-| `sp` | compare file                         |
-| `nf` | temp file                            |
-| `tt` | open the directory of the file(cover) |
+| Key         | Action                                |
+|-------------|---------------------------------------|
+| `sp`        | compare file                          |
+| `nf`        | temp file                             |
+| `tt`        | open the directory of the file(cover) |
+| `<space>rc` | open vimrc                            |
+| `<space>td` | open my vim todo                      |
 
 ## tab management
 
@@ -35,37 +37,40 @@
 
 ## split screen
 
-| Key        | Action                             |
-|------------|------------------------------------|
-| `sl`       | new file on the left screen        |
-| `su`       | new file on the top half screen    |
-| `sr`       | open the current file on the right |
-| `<space>h` | move cursor left                   |
-| `<space>l` | move cursor right                  |
-| `<space>j` | move cursor half screen down       |
-| `<space>k` | move cursor half screen up         |
-| `<left>`   | narrow the screen with cursor      |
-| `<right>`  | widen the screen with cursor       |
-| `<up>`     | adjust the size of the half screen |
-| `<down>`   | adjust the size of the half screen |
+| Key              | Action                             |
+|------------------|------------------------------------|
+| `sl`             | new file on the left screen        |
+| `su`             | new file on the top half screen    |
+| `sr`             | open the current file on the right |
+| `<space>h`       | move cursor left                   |
+| `<space>l`       | move cursor right                  |
+| `<space>j`       | move cursor half screen down       |
+| `<space>k`       | move cursor half screen up         |
+| `<left>`         | narrow the screen with cursor      |
+| `<right>`        | widen the screen with cursor       |
+| `(option)<up>`   | adjust the size of the half screen |
+| `(option)<down>` | adjust the size of the half screen |
+| `(option)sh`     | vsplit to split                    |
+| `(option)sv`     | split to vsplit                    |
 
 ## shortcut for quickly move and save
 
-| Key  | Action                          |
-|------|---------------------------------|
-| `K`  | 5k                              |
-| `J`  | 5j                              |
-| `W`  | 5w                              |
-| `B`  | 5b                              |
-| `H`  | cursor to the start of the line |
-| `L`  | cursor to the end of the line   |
-| `>`  | >>                              |
-| `<`  | <<                              |
-| `==` | auto indent                     |
-| `S`  | :w<CR>                          |
-| `Q`  | :q<CR>                          |
-| `s`  | no action                       |
-| `;`  | :                               |
+| Key             | Action                          |
+|-----------------|---------------------------------|
+| `K`             | 5k                              |
+| `J`             | 5j                              |
+| `W`             | 5w                              |
+| `B`             | 5b                              |
+| `H`             | cursor to the start of the line |
+| `L`             | cursor to the end of the line   |
+| `>`             | >>                              |
+| `<`             | <<                              |
+| `(default)==`   | auto indent                     |
+| `(option)S`     | :w<CR>                          |
+| `(option)Q`     | :q<CR>                          |
+| `s`             | no action                       |
+| `;`             | :                               |
+| `(option)<C-l>` | <esc>                           |
 
 ## spell check in English
 
@@ -73,6 +78,7 @@
 |-------------|-------------------------------------------------|
 | `<space>se` | check spell of English                          |
 | `z=`        | look up the correct choices of wrong spell word |
+| `<C-x>`     | show word options                               |
 
 ## compile and run
 
@@ -270,17 +276,17 @@
 
 ## taglist
 
-| Key                       | Action                                                                                        |
-|---------------------------|-----------------------------------------------------------------------------------------------|
-| `tl`                      | Tlist open & close                                                                            |
-| `o`                       | jump to the tag in a new window                                                               |
-| `p`                       | jump to the tag but still keep the cursor in the taglist window                               |
-| `P`                       | open the file in the preview window                                                           |
+| Key                       | Action                                                                                         |
+|---------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `tl`                      | Tlist open & close                                                                             |
+| `o`                       | jump to the tag in a new window                                                                |
+| `p`                       | jump to the tag but still keep the cursor in the taglist window                                |
+| `P`                       | open the file in the preview window                                                            |
 | `t`                       | open the select file in a tab. if the file is already present in a tab, then only cursor move |
-| `<Ctrl>t`                 | jump to a tag in a new tab                                                                    |
-| `<Enter> or double click` | open the file(jump to the tag)                                                                |
-| `[[ or <backspace>`       | jump to the beginning of the previous file                                                    |
-| `]] or <tab>`             | jump to the begin of the next file                                                            |
+| `<Ctrl>t`                 | jump to a tag in a new tab                                                                     |
+| `<Enter> or double click` | open the file(jump to the tag)                                                                 |
+| `[[ or <backspace>`       | jump to the beginning of the previous file                                                     |
+| `]] or <tab>`             | jump to the begin of the next file                                                             |
 
 ## undotree
 
