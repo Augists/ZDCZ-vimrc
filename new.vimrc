@@ -1,11 +1,11 @@
-		 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-		 "	       __     _____ __  __ ____   ____	            "
-		 "	       \ \ Y / /_ _|  \/  |  _ \ / ___|		    "
-		 "	        \ \ / / | || |\/| | |_) | |		    "
-		 "             Z \ V /  | || |  | |  _ <| |__              "
-		 "	   	  \_/  |___|_| C|_|_| \_\\____|		    "
-		 "	   		    			            "
-		 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+		 """"""""""""""""""""""""""""""""""""""""""""""""""""""
+		 "          __     _____ __  __ ____   ____           "
+		 "          \ \ Y / /_ _|  \/  |  _ \ / ___|          "
+		 "           \ \ / / | || |\/| | |_) | |              "
+		 "          Z \ V /  | || |  | |  _ <| |__           "
+		 "             \_/  |___|_| C|_|_| \_\\____|          "
+		 "                                                    "
+		 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 
@@ -27,7 +27,7 @@ syntax enable		"highlight syntax
 " set background=dark"no neccessary
 " colorscheme evening	"color mode
 " reset the color if there is any problem
-" let &t_ut=''
+let &t_ut=''
 
 """line and command setting"""
 set cursorline		"use the underline to reming the current line
@@ -39,7 +39,7 @@ set showcmd
 set laststatus=2
 set scrolloff=5		"keep 5 lines distance from the top and the status bar
 " set backspace=indent,eol,start		"can backspace to the upper line
-" au BufReadPost * if line("'\'") > 1 && line("'\'") <= line("$") | exe "normal! g'\"" | endif		"set the cursor at the postion before last close(but no use)
+" au BufReadPost * if line("'\'") > 1 && line("'\'") <= line("$") | exe "normal! g'\"" | endif		"set the cursor at the position before last close(of no use)
 
 " set mouse=a
 " n: normal mode
@@ -54,7 +54,7 @@ set scrolloff=5		"keep 5 lines distance from the top and the status bar
 
 set list			"show invisible signal
 set listchars=tab:\|\ ,trail:▫		"show a tail of space
-
+" set listchars=tab:➤\ ,trail:▫		"show a tail of space
 
 """tab and backspace setting"""
 set shiftwidth=4	"when using << or >>, move 4
@@ -85,7 +85,8 @@ nnoremap tt :e %:p:h/<CR>
 " as the same as :Ex<CR>
 set autochdir
 " Open the vimrc file anytime
-" noremap <space>rc :e ~/.vimrc<CR>
+nnoremap <space>rc :e ~/.vimrc<CR>
+nnoremap <space>td :set splitright<CR>:vsplit<CR>:e ~/Downloads/.todo.md<CR>
 
 
 """"""""""tab management""""""""""
@@ -136,15 +137,9 @@ nnoremap <left> :vertical resize-5<CR>
 " map <up> :res +5<CR>
 " map <down> :res -5<CR>
 
-" change split screen mode
-" Place the two screens up and down
-" noremap sh <C-w>t<C-w>K
-" Place the two screens side by side
-" noremap sv <C-w>t<C-w>H
-
 " Rotate screens
-" noremap srh <C-w>b<C-w>K
-" noremap srv <C-w>b<C-w>H
+" noremap sh <C-w>b<C-w>K
+" noremap sv <C-w>b<C-w>H
 
 
 """"""""""shortcut for quickly move and save""""""""""
@@ -158,7 +153,7 @@ noremap L $
 nnoremap > >>
 nnoremap < <<
 
-nnoremap S :w<CR>
+" nnoremap S :w<CR>
 nnoremap s <nop>
 " nnoremap Q :q<CR>
 nnoremap ; :
@@ -169,6 +164,10 @@ inoremap <C-c> <Esc>zza
 " vnoremap <C-l> <esc>
 
 
+""""""""""clipbroad""""""""""
+set clipboard=unnamed
+
+
 """"""""""no temp file""""""""""
 set nobackup
 set noswapfile
@@ -176,6 +175,7 @@ set nowritebackup
 
 
 """"""""""auto indent""""""""""
+" set expandtab
 set smarttab
 set smartindent
 set autoindent
@@ -275,6 +275,7 @@ endfunc
 " use <space>+sc to open and close the check(English)
 nnoremap <space>se :set spell!<CR>
 " use z= to look up the choices
+inoremap <C-x> <C-x>s
 
 
 """"""""""code completion""""""""""
@@ -342,12 +343,13 @@ func! CompileRunGcc()
 endfunc
 
 " C,C++ debug(can use lldb)
-" map <F8> :call Rungdb()<CR>
-" func! Rungdb()
-"     exec "w"
-"     exec "!g++ % -g -o %<"
-"     exec "!gdb ./%<"
-" endfunc
+map <F8> :call Rungdb()<CR>
+func! Rungdb()
+    exec "w"
+    exec "!g++ % -g -o %<"
+    " exec "!gdb ./%<"
+    exec "!lldb ./%<"
+endfunc
 
 nnoremap tr :term<CR>
 
@@ -358,10 +360,19 @@ set undofile
 " set backup, swap, history directory
 " end with // for full path. use % to replace directory seperator on purpose
 " to prevent another file using the same filename
-set backupdir=~/.vim/.backup//
-set directory=~/.vim/.swp//
-set undodir=~/.vim/.undo//
+silent !mkdir -p ~/.vim/backup
+silent !mkdir -p ~/.vim/undo
+" set backupdir=~/.vim/backup//
+" set directory=~/.vim/backup//
+" set undodir=~/.vim/undo//
+set backupdir=~/.vim/backup
+set directory=~/.vim/backup
+set undodir=~/.vim/undo
 set autoread		"open supervision for not being edited by other editor
+" if has("persistent_undo")
+"     set undodir=$HOME."/.vim/.undodir"
+"     set undofile
+" endif
 
 
 """""""""""markdown shortcut"""""""""
@@ -387,7 +398,7 @@ autocmd Filetype markdown inoremap ;6 ###### <enter><++><esc>kA
 autocmd Filetype markdown inoremap ;l --------<enter>
 
 " auto spell
-" autocmd BufRead,BufNewFile *.md setlocal spell
+autocmd BufRead,BufNewFile *.md setlocal spell
 
 
 """"""""""plug magegement""""""""""
@@ -399,14 +410,16 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'connorholyday/vim-snazzy'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " NERDTree
-Plug 'preservim/nerdtree'
-Plug 'mbbill/undotree'
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 
 " Fuzzy File Finder
-Plug '/usr/local/opt/fzf'
+Plug '/usr/local/opt/fzf', { 'on': 'FZF' }
 
 " syntax check
 " Plug 'scrooloose/syntastic'	"not as good as ale
@@ -430,6 +443,7 @@ Plug 'dkarter/bullets.vim', { 'for': ['markdown', 'vim-plug'] }
 
 " underline the word under the cursor
 Plug 'itchyny/vim-cursorword'
+" Plug 'RRethy/vim-illuminate'
 " multiple section
 Plug 'terryma/vim-multiple-cursors'
 
@@ -486,6 +500,18 @@ Plug 'machakann/vim-highlightedyank'
 call plug#end()
 
 
+" ==============
+" === snazzy ===
+" ==============
+let g:SnazzyTransparent = 1
+" let g:lightline = {
+" \ 'colorscheme': 'snazzy',
+" \ }
+colorscheme snazzy
+nnoremap sn :colorscheme snazzy<CR>
+nnoremap sd :colorscheme default<CR>
+
+
 " ===============
 " === airline ===
 " ===============
@@ -498,6 +524,11 @@ call plug#end()
 " let g:airline_right_sep = '«'
 " let g:airline_right_sep = '◀'
 " let g:airline_left_sep = '➤'
+
+" =====================
+" === airline theme ===
+" =====================
+let g:airline_theme='simple'
 
 
 " ================
@@ -694,6 +725,11 @@ let g:Tlist_Use_Right_Window = 1
 let g:Tlist_Exit_OnlyWindow = 1
 " let g:Tlist_Auto_Open = 1
 let g:Tlist_GainFocus_On_ToggleOpen = 1		" open taglist and move cursor to the list"
+" reload the current file
+nnoremap R :w<CR>:e<CR>
+" reload all files
+" nnoremap R :bufdo e
+" or :bufdo :e!
 
 
 " ================
