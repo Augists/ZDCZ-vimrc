@@ -6,9 +6,9 @@ I use **vim-plug** to manage my plugins of vim
 
 ## preview
 
-![1](https://github.com/Augists-ZDCZ/ZDCZ-vimrc/blob/master/1.png)
+![1](https://tva1.sinaimg.cn/large/007S8ZIlly1gdq5z91ftjj31c00u0hdx.jpg)
 
-![2](https://github.com/Augists-ZDCZ/ZDCZ-vimrc/blob/master/2.png)
+![2](https://tva1.sinaimg.cn/large/00831rSTly1gdoltzyalvj31c00u0u11.jpg)
 
 ## version
 
