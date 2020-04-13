@@ -86,7 +86,7 @@ nnoremap tt :e %:p:h/<CR>
 set autochdir
 " Open the vimrc file anytime
 nnoremap <space>rc :e ~/.vimrc<CR>
-nnoremap <space>td :set splitright<CR>:vsplit<CR>:e ~/Downloads/.todo.md<CR>
+nnoremap <space>td :set splitright<CR>:vsplit<CR>:e ~/Downloads/.todo.md<CR>/TODO<CR>:vertical resize-10<CR>
 
 
 """"""""""tab management""""""""""
@@ -164,8 +164,8 @@ inoremap <C-c> <Esc>zza
 " vnoremap <C-l> <esc>
 
 
-""""""""""clipbroad""""""""""
-set clipboard=unnamed
+""""""""""clipboard""""""""""
+" set clipboard=unnamed
 
 
 """"""""""no temp file""""""""""
@@ -210,65 +210,6 @@ filetype on
 filetype indent on
 filetype plugin on
 filetype plugin indent on
-
-
-""""""""""auto add head""""""""""
-autocmd BufNewFile *.[ch]pp,*.[ch],*.sh,*.py,*.cc,*.java exec ":call SetTitle()"
-func SetTitle()
-	"如果文件类型为.sh文件
-	if &filetype == 'sh'
-		call setline(1,          "\#########################################################################")
-		call append(line("."),   "\#    File Name: ".expand("%"))
-		call append(line(".")+1, "\#       Author: Augists")
-		call append(line(".")+2, "\#        Email: awzyc2010@163.com")
-		call append(line(".")+3, "\# Created Time: ".strftime("%c"))
-		call append(line(".")+4, "\#########################################################################")
-		call append(line(".")+5, "\#!/bin/bash")
-		call append(line(".")+6, "")
-	elseif &filetype == 'python'
-		call setline(1,          "\#########################################################################")
-		call append(line("."),   "\#    File Name: ".expand("%"))
-		call append(line(".")+1, "\#       Author: Augists")
-		call append(line(".")+2, "\#        Email: awzyc2010@163.com")
-		call append(line(".")+3, "\# Created Time: ".strftime("%c"))
-		call append(line(".")+4, "\#########################################################################")
-		call append(line(".")+5, "\#!/usr/bin/python")
-		call append(line(".")+6, "")
-	else
-		call setline(1,			 "\/************************************************************************")
-		call append(line("."),   " *	>    File Name: ".expand("%"))
-		call append(line(".")+1, " *	>       Author: Augists")
-		call append(line(".")+2, " *	>        Email: awzyc2010@163.com")
-		call append(line(".")+3, " *	> Created Time: ".strftime("%c"))
-		call append(line(".")+4, " ************************************************************************/")
-		call append(line(".")+5, "")
-	endif
-	if &filetype == 'cpp'
-		call append(line(".")+6, "#include <iostream>")
-		call append(line(".")+7, "using namespace std;")
-		call append(line(".")+8, "")
-	endif
-	if &filetype == 'hpp'
-		call append(line(".")+6, "#include <iostream>")
-		call append(line(".")+7, "using namespace std;")
-		call append(line(".")+8, "")
-	endif
-	if &filetype == 'cc'
-		call append(line(".")+6, "#include <iostream>")
-		call append(line(".")+7, "using namespace std;")
-		call append(line(".")+8, "")
-	endif
-	if &filetype == 'c'
-		call append(line(".")+6, "#include <stdio.h>")
-		call append(line(".")+7, "")
-	endif
-	if &filetype == 'java'
-		call append(line(".")+6,"public class ".expand("%"))
-		call append(line(".")+7,"")
-	endif
-	" autocmd BufNewFile * normal G
-	normal G
-endfunc
 
 
 """"""""""spell check in English""""""""""
@@ -383,10 +324,10 @@ autocmd Filetype markdown inoremap ;n ---<Enter><Enter>
 autocmd Filetype markdown inoremap ;b **** <++><esc>F*hi
 autocmd Filetype markdown inoremap ;s ~~~~ <++><esc>F~hi
 autocmd Filetype markdown inoremap ;i ** <++><esc>F*i
-autocmd Filetype markdown inoremap ;d '' <++><esc>F'i
+autocmd Filetype markdown inoremap ;d `` <++><esc>F`i
 autocmd Filetype markdown inoremap ;c ```<enter><++><enter>```<enter><enter><++><esc>4kA
 autocmd Filetype markdown inoremap ;h ==== <++><esc>F=hi
-autocmd Filetype markdown inoremap ;m - []<space>
+autocmd Filetype markdown inoremap ;m - [ ]<space>
 autocmd Filetype markdown inoremap ;p ![](<++>) <++><esc>F[a
 autocmd Filetype markdown inoremap ;a [](<++>) <++><esc>F[a
 autocmd Filetype markdown inoremap ;1 # <enter><++><esc>kA
@@ -396,6 +337,7 @@ autocmd Filetype markdown inoremap ;4 #### <enter><++><esc>kA
 autocmd Filetype markdown inoremap ;5 ##### <enter><++><esc>kA
 autocmd Filetype markdown inoremap ;6 ###### <enter><++><esc>kA
 autocmd Filetype markdown inoremap ;l --------<enter>
+autocmd Filetype markdown nnoremap td /TODO<CR>
 
 " auto spell
 autocmd BufRead,BufNewFile *.md setlocal spell
@@ -409,6 +351,8 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
+
+Plug 'nine2/vim-copyright'
 
 Plug 'connorholyday/vim-snazzy'
 Plug 'vim-airline/vim-airline'
@@ -498,6 +442,13 @@ Plug 'AndrewRadev/switch.vim'
 Plug 'machakann/vim-highlightedyank'
 
 call plug#end()
+
+
+" =================
+" === copyright ===
+" =================
+let g:file_copyright_name = "Augists"
+let g:file_copyright_email = "awzyc2010@163.com"
 
 
 " ==============
@@ -736,3 +687,4 @@ nnoremap R :w<CR>:e<CR>
 " === undotree ===
 " ================
 nnoremap ut :UndotreeToggle<CR>
+
