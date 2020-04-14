@@ -355,6 +355,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'nine2/vim-copyright'
 
 Plug 'connorholyday/vim-snazzy'
+Plug 'ajmwagar/vim-deus'
+Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -451,16 +453,32 @@ let g:file_copyright_name = "Augists"
 let g:file_copyright_email = "awzyc2010@163.com"
 
 
-" ==============
-" === snazzy ===
-" ==============
+" ===============
+" === nsnazzy ===
+" ===============
 let g:SnazzyTransparent = 1
 " let g:lightline = {
 " \ 'colorscheme': 'snazzy',
 " \ }
 colorscheme snazzy
-nnoremap sn :colorscheme snazzy<CR>
-nnoremap sd :colorscheme default<CR>
+nnoremap sn :colorscheme snazzy<CR>:AirlineTheme soda<CR>
+" nnoremap sd :colorscheme default<CR>
+
+
+" ============
+" === deus ===
+" ============
+set t_Co=256
+set termguicolors
+
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+nnoremap sd :set background=dark<CR>:AirlineTheme simple<CR>:colorscheme deus<CR>:AirlineTheme deus<CR>
+" set background=dark    " Setting dark mode
+" colorscheme deus
+let g:deus_termcolors=256
+
 
 
 " ===============
@@ -479,7 +497,8 @@ nnoremap sd :colorscheme default<CR>
 " =====================
 " === airline theme ===
 " =====================
-let g:airline_theme='simple'
+" let g:airline_theme='simple'
+let g:airline_theme='soda'
 
 
 " ================
