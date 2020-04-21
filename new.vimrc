@@ -39,7 +39,9 @@ set showcmd
 set laststatus=2
 set scrolloff=5		"keep 5 lines distance from the top and the status bar
 " set backspace=indent,eol,start		"can backspace to the upper line
-" au BufReadPost * if line("'\'") > 1 && line("'\'") <= line("$") | exe "normal! g'\"" | endif		"set the cursor at the position before last close(of no use)
+" Restore cursor to file position in previous editing session
+set viminfo='10,\"100,:20,%,n~/.viminfo
+autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
 " set mouse=a
 " n: normal mode
@@ -73,6 +75,13 @@ set foldenable
 set foldmethod=indent	"zc to fold and zo to unfold
 set foldlevel=99
 " set foldmethod=manual
+
+
+""""""""""file type""""""""""
+filetype on
+filetype indent on
+filetype plugin on
+filetype plugin indent on
 
 
 """"""""""file directory""""""""""
@@ -150,8 +159,10 @@ noremap B 5b
 noremap H 0
 noremap L $
 
-nnoremap > >>
-nnoremap < <<
+nnoremap > >gv
+nnoremap < <gv
+" nnoremap < <<
+" nnoremap > >>
 
 " nnoremap S :w<CR>
 nnoremap s <nop>
@@ -180,6 +191,9 @@ set smarttab
 set smartindent
 set autoindent
 
+" C/C++ specific settings
+" autocmd FileType c,cpp,cc  set cindent comments=sr:/*,mb:*,el:*/,:// cino=>s,e0,n0,f0,{0,}0,^-1s,:0,=s,g0,h1s,p2,t0,+2,(2,)20,*30
+
 " inoremap ( ()<ESC>i
 " inoremap { {<CR>}<ESC>O
 " inoremap [ []<ESC>i
@@ -205,13 +219,6 @@ set autoindent
 " endfunction
 
 
-""""""""""file type""""""""""
-filetype on
-filetype indent on
-filetype plugin on
-filetype plugin indent on
-
-
 """"""""""spell check in English""""""""""
 " use <space>+sc to open and close the check(English)
 nnoremap <space>se :set spell!<CR>
@@ -221,16 +228,27 @@ inoremap <C-x> <C-x>s
 
 """"""""""code completion""""""""""
 set wildmenu
-set wildmode=longest:list,full	"to be checked
+set wildmode=longest:list,full	" to be checked
 set completeopt=preview,menu
 set completeopt=longest,menu
 " when needing auto completion, use esc + N
 " if there are choices, use tab to choose
 nnoremap N a<C-n>
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
 " inoremap <silent><expr> <TAB>
 "       \ pumvisible() ? "\<C-n>" :
 "       \ <SID>check_back_space() ? "\<TAB>" :
+"       " \ coc#refresh()
 " inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
+
 " function! CleverTab()
 "            if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
 "               return "\<Tab>"
@@ -246,6 +264,7 @@ nnoremap N a<C-n>
 
 """"""""""select all and copy""""""""""
 " nnoremap <C-a> ggVGY
+vnoremap Y "+y
 
 
 """"""""""complie and run""""""""""
@@ -257,14 +276,18 @@ func! CompileRunGcc()
         exec "!gcc % -o %<"
         exec "!time ./%<"
     elseif &filetype == 'cpp'
-		"set splitbelow
-		"exec "!g++ -std=c++11 % -Wall -o %<"
-		":term ./%<
-		":res -10
+		"
+		" set splitbelow
+		" exec "!g++ -std=c++11 % -Wall -o %<"
+		" :term ./%<
+		" :res -10
+		"
         exec "!g++ % -o %<"
         exec "!time ./%<"
+		"
 		":sp
 		":res -10
+		"
     elseif &filetype == 'go'
         exec "!time go run %"
 		"exec ":GoRun %"
@@ -352,20 +375,26 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+" auto add head
 Plug 'nine2/vim-copyright'
 
+" dress up
 Plug 'connorholyday/vim-snazzy'
 Plug 'ajmwagar/vim-deus'
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-" NERDTree
+" Tree
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 
 " Fuzzy File Finder
 Plug '/usr/local/opt/fzf', { 'on': 'FZF' }
+
+" complete
+" Plug 'jayli/vim-dictionary'
+" Plug 'jayli/vim-easycomplete'
 
 " syntax check
 " Plug 'scrooloose/syntastic'	"not as good as ale
@@ -396,8 +425,13 @@ Plug 'terryma/vim-multiple-cursors'
 " auto pairs
 Plug 'jiangmiao/auto-pairs'
 
+" c family plug
+Plug 'rhysd/vim-clang-format'
 " go plug
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': ['go'] }
+
+" dictionary
+Plug 'itchyny/dictionary.vim', { 'for': ['markdown'] }
 
 " python
 " Plug 'vim-scripts/indentpython.vim'
@@ -414,8 +448,8 @@ Plug 'nathanaelkane/vim-indent-guides', { 'for': ['python', 'html'] }
 " Plug 'pangloss/vim-javascript'
 
 " surround and commentary from tpope
-Plug 'tpope/vim-surround' " type yskw' to wrap the word with '' or type cs'` to change 'word' to `word`
-Plug 'tpope/vim-commentary'	"gc
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 
 " highlight the whitespace at the end of each line
 Plug 'ntpeters/vim-better-whitespace'
@@ -453,31 +487,30 @@ let g:file_copyright_name = "Augists"
 let g:file_copyright_email = "awzyc2010@163.com"
 
 
-" ===============
-" === nsnazzy ===
-" ===============
+" ==============
+" === snazzy ===
+" ==============
 let g:SnazzyTransparent = 1
 " let g:lightline = {
 " \ 'colorscheme': 'snazzy',
 " \ }
+"
 colorscheme snazzy
 nnoremap sn :colorscheme snazzy<CR>:AirlineTheme soda<CR>
+"
 " nnoremap sd :colorscheme default<CR>
 
 
 " ============
 " === deus ===
 " ============
-set t_Co=256
-set termguicolors
-
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 nnoremap sd :set background=dark<CR>:AirlineTheme simple<CR>:colorscheme deus<CR>:AirlineTheme deus<CR>
 " set background=dark    " Setting dark mode
 " colorscheme deus
-let g:deus_termcolors=256
+" let g:deus_termcolors=256
 
 
 
@@ -488,17 +521,30 @@ let g:deus_termcolors=256
 " let g:airline#extensions#tabline#left_sep = ' '
 " let g:airline#extensions#tabline#left_alt_sep = '|'
 " let g:airline#extensions#tabline#formatter = 'unique_tail'
+" let g:airline_statusline_ontop=1
+
 " let g:airline_left_sep = '»'
 " let g:airline_left_sep = '▶'
 " let g:airline_right_sep = '«'
 " let g:airline_right_sep = '◀'
 " let g:airline_left_sep = '➤'
 
+" let g:airline_left_sep = ''
+" let g:airline_left_alt_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_right_alt_sep = ''
+
+" let g:airline_symbols.branch = ''
+" let g:airline_symbols.readonly = ''
+" let g:airline_symbols.linenr = '☰'
+" let g:airline_symbols.maxlinenr = ''
+
 " =====================
 " === airline theme ===
 " =====================
 " let g:airline_theme='simple'
 let g:airline_theme='soda'
+" let g:airline_theme='deus'
 
 
 " ================
@@ -545,6 +591,41 @@ nmap ]a <Plug>(ale_next_wrap)
 nmap [a <Plug>(ale_previous_wrap)
 
 
+" ====================
+" === clang format ===
+" ====================
+" let g:clang_format#code_style="mozilla"
+"
+" own code style
+let g:clang_format#code_style="chromium"
+let g:clang_format#style_options = {
+            \ "AccessModifierOffset" : -4,
+            \ "AllowShortIfStatementsOnASingleLine" : "true",
+            \ "AlwaysBreakTemplateDeclarations" : "true",
+            \ "AlignTrailingComments" : "true",
+            \ "Standard" : "C++11"}
+nnoremap <space>fm :ClangFormat<CR>ggVG=
+
+" visual studio style
+" let g:clang_format#code_style="llvm"
+" let g:clang_format#style_options = {
+"             \ "AccessModifierOffset" : -4,
+"             \ "IndentWidth" : 4,
+"             \ "BreakBeforeBraces" : "Allman",
+"             \ "AllowShortIfStatementsOnASingleLine" : "false",
+"             \ "IndentCaseLabels" : "false",
+"             \ "ColumnLimit" : 0,
+"             \ "Standard" : "C++11"}
+" nnoremap <space>fm :ClangFormat<CR>
+
+            " \ "AlignTrailingComments" : "true",
+            " \ "AlwaysBreakTemplateDeclarations" : "true",
+            " \ "Standard" : "Latest"}
+
+" imap <Tab>   <Plug>EasyCompTabTrigger
+" imap <S-Tab> <Plug>EasyCompShiftTabTrigger
+
+
 " ===========================
 " === SnipMate & Snippets ===
 " ===========================
@@ -554,6 +635,7 @@ nmap [a <Plug>(ale_previous_wrap)
 " :smap <C-J> <Plug>snipMateNextOrTrigger
 " :imap <C-k> <Plug>snipMateBack
 " :smap <C-k> <Plug>snipMateBack
+" <Plug>snipMateShow
 
 
 " ==============
@@ -584,6 +666,21 @@ let g:go_highlight_types = 1
 let g:go_highlight_variable_assignments = 0
 let g:go_highlight_variable_declarations = 0
 let g:go_doc_keywordprg_enabled = 0
+
+
+" ====================
+" === vim surround ===
+" ====================
+" Details follow on the exact semantics, but first, consider the following
+" examples.  An asterisk (*) is used to denote the cursor position.
+
+"   Old text                  Command     New text ~
+"   "Hello *world!"           ds"         Hello world!
+"   <div>Yo!*</div>           dst         Yo!
+"   [123+4*56]/2              cs])        (123+456)/2
+"   "Look ma, I'm *HTML!"     cs"<q>      <q>Look ma, I'm HTML!</q>
+"   if *x>3 {                 ysW(        if ( x>3 ) {
+"   my $str = *whee!;         vllllS'     my $str = 'whee!';
 
 
 " ============
@@ -680,10 +777,11 @@ let g:highlightedyank_highlight_duration = 500
 " ==============
 " let g:switch_mapping = ""
 
-let g:python_host_skip_check=1
-let g:python_host_prog = '/usr/local/bin/python'
-let g:python3_host_skip_check=1
-let g:python3_host_prog = '/usr/local/bin/python3'
+
+" let g:python_host_skip_check=1
+" let g:python_host_prog = '/usr/bin/python'
+" let g:python3_host_skip_check=1
+" let g:python3_host_prog = '/usr/local/bin/python3'
 
 
 " ===============
@@ -705,5 +803,4 @@ nnoremap R :w<CR>:e<CR>
 " ================
 " === undotree ===
 " ================
-nnoremap ut :UndotreeToggle<CR>
-
+nnoremap nd :UndotreeToggle<CR>
