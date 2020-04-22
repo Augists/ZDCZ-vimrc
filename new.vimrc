@@ -86,7 +86,7 @@ filetype plugin indent on
 
 """"""""""file directory""""""""""
 " compare files
-nnoremap cp :vert diffsplit
+nnoremap cp :vert diffsplit<space>
 " temp file (not cover)
 nnoremap nf :tabnew .<CR>
 " open the directory of this file
@@ -426,7 +426,8 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'jiangmiao/auto-pairs'
 
 " c family plug
-Plug 'rhysd/vim-clang-format'
+Plug 'rhysd/vim-clang-format', { 'on': 'ClangFormat' }
+
 " go plug
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': ['go'] }
 
@@ -597,26 +598,27 @@ nmap [a <Plug>(ale_previous_wrap)
 " let g:clang_format#code_style="mozilla"
 "
 " own code style
-let g:clang_format#code_style="chromium"
-let g:clang_format#style_options = {
-            \ "AccessModifierOffset" : -4,
-            \ "AllowShortIfStatementsOnASingleLine" : "true",
-            \ "AlwaysBreakTemplateDeclarations" : "true",
-            \ "AlignTrailingComments" : "true",
-            \ "Standard" : "C++11"}
-nnoremap <space>fm :ClangFormat<CR>ggVG=
-
-" visual studio style
-" let g:clang_format#code_style="llvm"
+" let g:clang_format#code_style="chromium"
 " let g:clang_format#style_options = {
 "             \ "AccessModifierOffset" : -4,
-"             \ "IndentWidth" : 4,
-"             \ "BreakBeforeBraces" : "Allman",
-"             \ "AllowShortIfStatementsOnASingleLine" : "false",
-"             \ "IndentCaseLabels" : "false",
-"             \ "ColumnLimit" : 0,
+"             \ "AllowShortIfStatementsOnASingleLine" : "true",
+"             \ "AlwaysBreakTemplateDeclarations" : "true",
+"             \ "AlignTrailingComments" : "true",
 "             \ "Standard" : "C++11"}
-" nnoremap <space>fm :ClangFormat<CR>
+" nnoremap <space>fm :ClangFormat<CR>ggVG=
+
+" visual studio style
+let g:clang_format#code_style="llvm"
+let g:clang_format#style_options = {
+            \ "AccessModifierOffset" : -4,
+            \ "IndentWidth" : 4,
+            \ "BreakBeforeBraces" : "Allman",
+            \ "AllowShortIfStatementsOnASingleLine" : "false",
+            \ "IndentCaseLabels" : "false",
+            \ "AlignTrailingComments" : "true",
+            \ "ColumnLimit" : 0,
+            \ "Standard" : "C++11"}
+nnoremap <space>fm :set expandtab<CR>:ClangFormat<CR>
 
             " \ "AlignTrailingComments" : "true",
             " \ "AlwaysBreakTemplateDeclarations" : "true",
@@ -804,3 +806,51 @@ nnoremap R :w<CR>:e<CR>
 " === undotree ===
 " ================
 nnoremap nd :UndotreeToggle<CR>
+
+
+" these below are from other
+"
+" set fileformats+=mac	" automatically detect mac file formats
+"
+" auto reload vimrc when editing it
+" autocmd! bufwritepost .vimrc source ~/.vimrc
+"
+" vim.edit.copy-and-paste
+" set clipboard=unnamed       " use system clipboard by default
+" set paste                   " enable paste mode
+"
+" set copyindent		" copy the previous indentation on autoindenting
+"
+"
+"
+" replace the current word in all opened buffers
+" map <leader>r :call Replace()<CR>
+" ---------------------------------------------------------------------------
+" Tip #382: Search for <cword> and replace with input() in all open buffers
+" ---------------------------------------------------------------------------
+" fun! Replace()
+"     let s:word = input("Replace " . expand('<cword>') . " with:")
+"     :exe 'bufdo! %s/\<' . expand('<cword>') . '\>/' . s:word . '/ge'
+"     :unlet! s:word
+" endfun
+"
+" open the error console
+" map <leader>cc :botright cope<CR>
+" move to next error
+" map <leader>] :cn<CR>
+" move to the prev error
+" map <leader>[ :cp<CR>
+"
+" ,p toggles paste mode
+" nmap <leader>p :set paste!<BAR>set paste?<CR>"
+"
+" ,g generates the header guard
+" map <leader>g :call IncludeGuard()<CR>
+" fun! IncludeGuard()
+"    let basename = substitute(bufname(""), '.*/', '', '')
+"    let guard = '_' . substitute(toupper(basename), '\.', '_', "H")
+"    call append(0, "#ifndef " . guard)
+"    call append(1, "#define " . guard)
+"    call append( line("$"), "#endif // for #ifndef " . guard)
+" endfun
+"
