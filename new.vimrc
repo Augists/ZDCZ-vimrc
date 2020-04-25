@@ -95,7 +95,10 @@ nnoremap tt :e %:p:h/<CR>
 set autochdir
 " Open the vimrc file anytime
 nnoremap <space>rc :e ~/.vimrc<CR>
+" auto reload vimrc when editing it
+" autocmd! bufwritepost .vimrc source ~/.vimrc
 nnoremap <space>td :set splitright<CR>:vsplit<CR>:e ~/Downloads/.todo.md<CR>/TODO<CR>:vertical resize-10<CR>
+" set fileformats+=mac	" automatically detect mac file formats
 
 
 """"""""""tab management""""""""""
@@ -126,7 +129,10 @@ nnoremap <space><CR> :nohlsearch<CR>
 
 """fuzzy file finder"""
 set rtp+=/usr/local/opt/fzf
-nnoremap <space>f :FZF<CR>
+
+
+""""""""""figlet""""""""""
+nnoremap gx :r !figlet<space>
 
 
 """"""""""split screen""""""""""
@@ -177,6 +183,10 @@ inoremap <C-c> <Esc>zza
 
 """"""""""clipboard""""""""""
 " set clipboard=unnamed
+" set paste                   " enable paste mode
+" set copyindent		" copy the previous indentation on autoindenting
+" ,p toggles paste mode
+" nmap <leader>p :set paste!<BAR>set paste?<CR>"
 
 
 """"""""""no temp file""""""""""
@@ -406,6 +416,9 @@ Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 
+" SuperTab
+" Plug 'ervandew/supertab'
+
 " markdown
 Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['vim-plug', 'markdown'] }
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for': ['vim-plug', 'markdown'] }
@@ -477,6 +490,8 @@ Plug 'vim-scripts/taglist.vim'
 Plug 'AndrewRadev/switch.vim'
 
 Plug 'machakann/vim-highlightedyank'
+
+Plug 'lazywei/vim-matlab'
 
 call plug#end()
 
@@ -808,21 +823,6 @@ nnoremap R :w<CR>:e<CR>
 nnoremap nd :UndotreeToggle<CR>
 
 
-" these below are from other
-"
-" set fileformats+=mac	" automatically detect mac file formats
-"
-" auto reload vimrc when editing it
-" autocmd! bufwritepost .vimrc source ~/.vimrc
-"
-" vim.edit.copy-and-paste
-" set clipboard=unnamed       " use system clipboard by default
-" set paste                   " enable paste mode
-"
-" set copyindent		" copy the previous indentation on autoindenting
-"
-"
-"
 " replace the current word in all opened buffers
 " map <leader>r :call Replace()<CR>
 " ---------------------------------------------------------------------------
@@ -833,19 +833,18 @@ nnoremap nd :UndotreeToggle<CR>
 "     :exe 'bufdo! %s/\<' . expand('<cword>') . '\>/' . s:word . '/ge'
 "     :unlet! s:word
 " endfun
-"
+
+
 " open the error console
-" map <leader>cc :botright cope<CR>
+" map <space>cc :botright cope<CR>
 " move to next error
-" map <leader>] :cn<CR>
+" map <space>] :cn<CR>
 " move to the prev error
-" map <leader>[ :cp<CR>
-"
-" ,p toggles paste mode
-" nmap <leader>p :set paste!<BAR>set paste?<CR>"
-"
+" map <space>[ :cp<CR>
+
+
 " ,g generates the header guard
-" map <leader>g :call IncludeGuard()<CR>
+" map ,g :call IncludeGuard()<CR>
 " fun! IncludeGuard()
 "    let basename = substitute(bufname(""), '.*/', '', '')
 "    let guard = '_' . substitute(toupper(basename), '\.', '_', "H")
@@ -853,4 +852,45 @@ nnoremap nd :UndotreeToggle<CR>
 "    call append(1, "#define " . guard)
 "    call append( line("$"), "#endif // for #ifndef " . guard)
 " endfun
+
+
+" Compatible with ranger 1.4.2 through 1.7.*
 "
+" Add ranger as a file chooser in vim
+"
+" If you add this code to the .vimrc, ranger can be started using the command
+" ":RangerChooser" or the keybinding "<leader>r".  Once you select one or more
+" files, press enter and ranger will quit again and vim will open the selected
+" files.
+
+"function! RangeChooser()
+"    let temp = tempname()
+"    " The option "--choosefiles" was added in ranger 1.5.1. Use the next line
+"    " with ranger 1.4.2 through 1.5.0 instead.
+"    "exec 'silent !ranger --choosefile=' . shellescape(temp)
+"    if has("gui_running")
+"        exec 'silent !xterm -e ranger --choosefiles=' . shellescape(temp)
+"    else
+"        exec 'silent !ranger --choosefiles=' . shellescape(temp)
+"    endif
+"    if !filereadable(temp)
+"        redraw!
+"        " Nothing to read.
+"        return
+"    endif
+"    let names = readfile(temp)
+"    if empty(names)
+"        redraw!
+"        " Nothing to open.
+"        return
+"    endif
+"    " Edit the first item.
+"    exec 'edit ' . fnameescape(names[0])
+"    " Add any remaning items to the arg list/buffer list.
+"    for name in names[1:]
+"        exec 'argadd ' . fnameescape(name)
+"    endfor
+"    redraw!
+"endfunction
+"command! -bar RangerChooser call RangeChooser()
+"nnoremap <leader>r :<C-U>RangerChooser<CR>
