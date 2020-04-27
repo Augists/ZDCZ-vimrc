@@ -1,13 +1,12 @@
-# USAGE OF VIM
+#USAGE OF VIM
 
-
-# Normal
+#Normal
 
 ## file directory
 
 | Key         | Action                                |
 |-------------|---------------------------------------|
-| `sp`        | compare file                          |
+| `cp`        | compare file                          |
 | `nf`        | temp file                             |
 | `tt`        | open the directory of the file(cover) |
 | `<space>rc` | open vimrc                            |
@@ -33,7 +32,13 @@
 
 | Key        | Action            |
 |------------|-------------------|
-| `<space>f` | fuzzy file finder |
+| `:FZF<CR>` | fuzzy file finder |
+
+## figlet
+
+| Key  | Action                   |
+|------|--------------------------|
+| `gx` | insert figlet characters |
 
 ## split screen
 
@@ -55,22 +60,22 @@
 
 ## shortcut for quickly move and save
 
-| Key             | Action                          |
-|-----------------|---------------------------------|
-| `K`             | 5k                              |
-| `J`             | 5j                              |
-| `W`             | 5w                              |
-| `B`             | 5b                              |
-| `H`             | cursor to the start of the line |
-| `L`             | cursor to the end of the line   |
-| `>`             | >>                              |
-| `<`             | <<                              |
-| `(default)==`   | auto indent                     |
-| `(option)S`     | :w<CR>                          |
-| `(option)Q`     | :q<CR>                          |
-| `s`             | no action                       |
-| `;`             | :                               |
-| `(option)<C-l>` | <esc>                           |
+| Key             | Action                                           |
+|-----------------|--------------------------------------------------|
+| `K`             | 5k                                               |
+| `J`             | 5j                                               |
+| `W`             | 5w                                               |
+| `B`             | 5b                                               |
+| `H`             | cursor to the start of the line                  |
+| `L`             | cursor to the end of the line                    |
+| `>`             | >> for the current line and >gv for visual lines |
+| `<`             | << for the current line and <gv for visual lines |
+| `(default)==`   | auto indent                                      |
+| `(option)S`     | :w<CR>                                           |
+| `(option)Q`     | :q<CR>                                           |
+| `s`             | no action                                        |
+| `;`             | :                                                |
+| `(option)<C-l>` | <esc>                                            |
 
 ## spell check in English
 
@@ -85,7 +90,16 @@
 | Key  | Action                                                   |
 |------|----------------------------------------------------------|
 | `f5` | compile and run                                          |
+| `f8` | lldb debug                                               |
 | `tr` | open a terminal in vim(open on the top)(<ctrl>d to quit) |
+
+## dress up vim
+
+| Key        | Action                                          |
+|------------|-------------------------------------------------|
+| `sn`       | color theme as snazzy and airline theme as soda |
+| `sd`       | color theme as deus and airline theme as deus   |
+| `(option)` | airline symbols for powerline font              |
 
 ## nerdtree
 
@@ -202,6 +216,18 @@
 | `:WriteBookmarks`        |
 | `:EditBookmarks`         |
 
+## dictionary
+
+| Key               | Action                                |
+|-------------------|---------------------------------------|
+| `:Dictionary<CR>` | open a dictionary in vim for markdown |
+
+## clang format
+
+| Key         | Action                        |
+|-------------|-------------------------------|
+| `<space>fm` | format as visual studio style |
+
 ## goyo
 
 | Key         | Action    |
@@ -229,16 +255,29 @@
 
 ## surround
 
-| Key    | Action                  |
-|--------|-------------------------|
-| `yskw` | wrap the word with ``   |
-| `cs`"` | change `word` to "word" |
+| Key       | Action                               |
+|-----------|--------------------------------------|
+| `ysW"`    | wrap the word with ""                |
+| `cs`"`    | change `word` to "word"              |
+| `cs"<q>`  | change "" to <q></q>                 |
+| `ds"`     | delete "" surrounding                |
+| `dst`     | delete tags surrounding              |
+| `v(n)lS'` | add '' surrounding the word selected |
 
 ## commentary
 
-| Key  | Action            |
-|------|-------------------|
-| `gc` | comment or delete |
+| Key   | Action                          |
+|-------|---------------------------------|
+| `gc`  | comment or delete(visual mode)  |
+| `gcc` | comment or delete(current line) |
+
+## useful tools
+
+| Key                 | Action                                         |
+|---------------------|------------------------------------------------|
+| `(option)<space>dw` | delete duplicate words                         |
+| `(option)<space>tt` | space to tab(both normal mode and visual mode) |
+| `(option)<space>r`  | replace word                                   |
 
 ## bookmark
 
@@ -276,25 +315,27 @@
 
 ## taglist
 
-| Key                       | Action                                                                                         |
-|---------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `tl`                      | Tlist open & close                                                                             |
-| `o`                       | jump to the tag in a new window                                                                |
-| `p`                       | jump to the tag but still keep the cursor in the taglist window                                |
-| `P`                       | open the file in the preview window                                                            |
+| Key                       | Action                                                                                        |
+|---------------------------|-----------------------------------------------------------------------------------------------|
+| `tl`                      | Tlist open & close                                                                            |
+| `o`                       | jump to the tag in a new window                                                               |
+| `p`                       | jump to the tag but still keep the cursor in the taglist window                               |
+| `P`                       | open the file in the preview window                                                           |
 | `t`                       | open the select file in a tab. if the file is already present in a tab, then only cursor move |
-| `<Ctrl>t`                 | jump to a tag in a new tab                                                                     |
-| `<Enter> or double click` | open the file(jump to the tag)                                                                 |
-| `[[ or <backspace>`       | jump to the beginning of the previous file                                                     |
-| `]] or <tab>`             | jump to the begin of the next file                                                             |
+| `<Ctrl>t`                 | jump to a tag in a new tab                                                                    |
+| `<Enter> or double click` | open the file(jump to the tag)                                                                |
+| `[[ or <backspace>`       | jump to the beginning of the previous file                                                    |
+| `]] or <tab>`             | jump to the begin of the next file                                                            |
+| `R`                       | reload the current file                                                                       |
 
 ## undotree
 
-| Key     | Action                                 |
-|---------|----------------------------------------|
-| `ut`    | undotree                               |
-| `>num<` | the current stats                      |
-| `{num}` | the next redo state                    |
+| Key     | Action            |
+|---------|-------------------|
+| `nd`    | undotree          |
+| `>num<` | the current stats |
+| `{
+    num}` | the next redo state                    |
 | `[num]` | the lastest state                      |
 | `s`     | saved states                           |
 | `S`     | the last saved state                   |
@@ -317,10 +358,9 @@
 | Key   | Action        |
 |-------|---------------|
 | `]a`  | next wrap     |
-| `[a]` | previous wrap |
+| `[a` | previous wrap |
 
-
-# Insert
+#Insert
 
 ## shortcut for quickly move
 
@@ -363,31 +403,33 @@
 | `;5` | ##### headline5                                    |
 | `;6` | ###### headline6                                   |
 | `;l` | --------                                           |
+| `td` | highlight TODO and jump(in normal mode)            |
 
 ## snipmate
 
-| key            | action                             |
-|----------------|------------------------------------|
-| `<tab>`        | snippets of code and next position |
-| `<shift><tab>` | last position of snippet           |
+| key               | action                             |
+|-------------------|------------------------------------|
+| `<tab>`           | snippets of code and next position |
+| `<shift><tab>`    | last position of snippet           |
+| `(option)<ctrl>j` | instead of <tab>                   |
+| `(option)<ctrl>k` | instead of <shift><tab>            |
 
-
-# Visual
+#Visual
 
 | key   | action                                     |
 |-------|--------------------------------------------|
-| `"y`  | put the selection into the paste of system |
+| `Y`   | put the selection into the paste of system |
 | `"p`  | paste from system paste                    |
 | `"gp` | paste and move to the end                  |
 
-
-
-
-
-# Template
+#Template
 
 | Key    | Action |
 |--------|--------|
 | `<++>` | <++>   |
 | `<++>` | <++>   |
 | `<++>` | <++>   |
+
+[⇐Back VIM](vim.md)
+
+[⇐Back Homepage](../index.md)
