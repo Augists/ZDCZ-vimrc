@@ -165,28 +165,21 @@ noremap B 5b
 noremap H 0
 noremap L $
 
-nnoremap > >gv
-nnoremap < <gv
-" nnoremap < <<
-" nnoremap > >>
+vnoremap > >gv
+vnoremap < <gv
+nnoremap < <<
+nnoremap > >>
 
-" nnoremap S :w<CR>
+nnoremap S :w<CR>
 nnoremap s <nop>
-" nnoremap Q :q<CR>
+nnoremap Q :q<CR>
 nnoremap ; :
+xmap ; :
 
 inoremap <C-c> <Esc>zza
 
 " inoremap <C-l> <esc>
 " vnoremap <C-l> <esc>
-
-
-""""""""""clipboard""""""""""
-" set clipboard=unnamed
-" set paste                   " enable paste mode
-" set copyindent		" copy the previous indentation on autoindenting
-" ,p toggles paste mode
-" nmap <leader>p :set paste!<BAR>set paste?<CR>"
 
 
 """"""""""no temp file""""""""""
@@ -272,9 +265,14 @@ nnoremap N a<C-n>
 " inoremap #in< #include <><esc>i
 
 
-""""""""""select all and copy""""""""""
+""""""""""clipboard""""""""""
 " nnoremap <C-a> ggVGY
 vnoremap Y "+y
+" set clipboard=unnamed
+" set paste                   " enable paste mode
+" set copyindent		" copy the previous indentation on autoindenting
+" ,p toggles paste mode
+" nmap <leader>p :set paste!<BAR>set paste?<CR>"
 
 
 """"""""""complie and run""""""""""
@@ -385,13 +383,14 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'mhinz/vim-startify'
+
 " auto add head
 Plug 'nine2/vim-copyright'
 
 " dress up
 Plug 'connorholyday/vim-snazzy'
 Plug 'ajmwagar/vim-deus'
-Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -420,11 +419,14 @@ Plug 'honza/vim-snippets'
 " Plug 'ervandew/supertab'
 
 " markdown
-Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': ['vim-plug', 'markdown'] }
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for': ['vim-plug', 'markdown'] }
+Plug 'dhruvasagar/vim-table-mode', { 'on': 'TableModeToggle', 'for': 'markdown' }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install_sync() }, 'for': 'markdown', 'on': 'MarkdownPreview' }
 " Plug 'vimwiki/vimwiki'
-Plug 'dkarter/bullets.vim', { 'for': ['markdown', 'vim-plug'] }
+Plug 'dkarter/bullets.vim', { 'for': ['markdown'] }
 " Plug 'lervag/vimtex', { 'for': ['markdown', 'vim-plug'] }
+
+" org-mode
+" Plug 'jceb/vim-orgmode'
 
 " ranger in vim
 "Plug 'francoiscabrol/ranger.vim'
@@ -445,7 +447,7 @@ Plug 'rhysd/vim-clang-format', { 'on': 'ClangFormat' }
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries', 'for': ['go'] }
 
 " dictionary
-Plug 'itchyny/dictionary.vim', { 'for': ['markdown'] }
+Plug 'itchyny/dictionary.vim', { 'on': 'Dictionary' }
 
 " python
 " Plug 'vim-scripts/indentpython.vim'
@@ -466,10 +468,11 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 
 " highlight the whitespace at the end of each line
-Plug 'ntpeters/vim-better-whitespace'
+Plug 'ntpeters/vim-better-whitespace', { 'for': ['vim-plug', 'c', 'cpp', 'go', 'markdown', 'python', 'html', 'vim'] }
 
 " goyo for focus
-Plug 'junegunn/goyo.vim'	"use :GoYo or :GoYo! to turn on or turn off
+Plug 'junegunn/goyo.vim', { 'on': 'GoYo' }
+" use :GoYo or :GoYo! to turn on or turn off
 
 " rainbow parentheses
 Plug 'luochen1990/rainbow'
@@ -491,9 +494,32 @@ Plug 'AndrewRadev/switch.vim'
 
 Plug 'machakann/vim-highlightedyank'
 
-Plug 'lazywei/vim-matlab'
-
 call plug#end()
+
+" ================
+" === startify ===
+" ================
+" let g:startify_custom_header = [
+let g:ascii = [
+		\ '              _               _     _           ',
+		\ '             / \  _   _  __ _(_)___| |_ ___     ',
+		\ '            / _ \| | | |/ _` | / __| __/ __|    ',
+		\ '           / ___ \ |_| | (_| | \__ \ |_\__ \    ',
+		\ '          /_/   \_\__,_|\__, |_|___/\__|___/    ',
+		\ '                        |___/                   ',
+		\ ]
+let g:startify_custom_header =
+	  \ 'startify#center(g:ascii + startify#fortune#boxed())'
+" let g:startify_custom_header = 'startify#center(startify#fortune#cowsay())'
+let g:startify_bookmarks = [ {'rc': '~/.vimrc'}, {'td': '~/Downloads/.todo.md'} ]
+" let g:startify_padding_left = 3
+" let g:startify_files_number = 10
+let g:startify_enable_special = 1
+let g:startify_lists = [
+	  \ { 'type': 'files',     'header': ['   MRU']            },
+	  \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+	  \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+	  \ ]
 
 
 " =================
@@ -603,8 +629,8 @@ call NERDTreeHighlightFile('java', 'Magenta', 'none', '#ff00ff', '#151515')
 let g:ale_linters = {'java': [], 'yaml': [], 'scala': [], 'clojure': []}
 let g:ale_fixers = {'ruby': ['rubocop']}
 let g:ale_lint_delay = 1000
-nmap ]a <Plug>(ale_next_wrap)
-nmap [a <Plug>(ale_previous_wrap)
+nnoremap ]a <Plug>(ale_next_wrap)
+nnoremap [a <Plug>(ale_previous_wrap)
 
 
 " ====================
@@ -698,6 +724,8 @@ let g:go_doc_keywordprg_enabled = 0
 "   "Look ma, I'm *HTML!"     cs"<q>      <q>Look ma, I'm HTML!</q>
 "   if *x>3 {                 ysW(        if ( x>3 ) {
 "   my $str = *whee!;         vllllS'     my $str = 'whee!';
+
+" let g:surround_insert_tail = "<++>"
 
 
 " ============
