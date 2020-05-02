@@ -93,8 +93,6 @@ nnoremap nf :tabnew .<CR>
 nnoremap tt :e %:p:h/<CR>
 " as the same as :Ex<CR>
 set autochdir
-" Open the vimrc file anytime
-nnoremap <space>rc :e ~/.vimrc<CR>
 " auto reload vimrc when editing it
 " autocmd! bufwritepost .vimrc source ~/.vimrc
 nnoremap <space>td :set splitright<CR>:vsplit<CR>:e ~/Downloads/.todo.md<CR>/TODO<CR>:vertical resize-10<CR>
@@ -170,9 +168,11 @@ vnoremap < <gv
 nnoremap < <<
 nnoremap > >>
 
-nnoremap S :w<CR>
+nnoremap <space>s :w<CR>
+nnoremap S <nop>
 nnoremap s <nop>
-nnoremap Q :q<CR>
+nnoremap <space>q :qa<CR>
+nnoremap Q q
 nnoremap ; :
 xmap ; :
 
@@ -234,23 +234,7 @@ set wildmenu
 set wildmode=longest:list,full	" to be checked
 set completeopt=preview,menu
 set completeopt=longest,menu
-" when needing auto completion, use esc + N
-" if there are choices, use tab to choose
 nnoremap N a<C-n>
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       " \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" function! s:check_back_space() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~# '\s'
-" endfunction
 
 " function! CleverTab()
 "            if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
@@ -277,50 +261,56 @@ vnoremap Y "+y
 
 """"""""""complie and run""""""""""
 " C，C++ use F5 to complie and run(no space in the file name)
-map <f5> :call CompileRunGcc()<CR>
+map <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
-    exec "w"
-    if &filetype == 'c'
-        exec "!gcc % -o %<"
-        exec "!time ./%<"
-    elseif &filetype == 'cpp'
+	exec "w"
+	if &filetype == 'c'
+		exec "!gcc % -o %<"
+		exec "!time ./%<"
+	elseif &filetype == 'cpp'
 		"
 		" set splitbelow
 		" exec "!g++ -std=c++11 % -Wall -o %<"
 		" :term ./%<
 		" :res -10
 		"
-        exec "!g++ % -o %<"
-        exec "!time ./%<"
+		exec "!g++ % -o %<"
+		exec "!time ./%<"
 		"
 		":sp
 		":res -10
 		"
-    elseif &filetype == 'go'
-        exec "!time go run %"
+	elseif &filetype == 'go'
+		" exec "!time go run %"
 		"exec ":GoRun %"
-    elseif &filetype == 'java'
-        exec "!javac %"
-        exec "!time	java %<"
+		set splitbelow
+		:sp
+		:term go run %
+	elseif &filetype == 'java'
+		" exec "!javac %"
+		exec "!time	java %<"
 	elseif &filetype == 'python'
 		silent! exec "!clear"
 		exec "!time python3 %"
 	elseif &filetype == 'html'
 		exec "!safari % &"
-    elseif &filetype == 'sh'
-        :!./%
+	elseif &filetype == 'sh'
+		:!./%
 	elseif &filetype == 'markdown'
 		exec "MarkdownPreview"
-    endif
+	elseif &filetype == 'tex'
+		silent! exec "VimtexStop"
+		silent! exec "VimtexCompile"
+	endif
 endfunc
 
 " C,C++ debug(can use lldb)
 map <F8> :call Rungdb()<CR>
 func! Rungdb()
-    exec "w"
-    exec "!g++ % -g -o %<"
-    " exec "!gdb ./%<"
-    exec "!lldb ./%<"
+	exec "w"
+	exec "!g++ % -g -o %<"
+	" exec "!gdb ./%<"
+	exec "!lldb ./%<"
 endfunc
 
 nnoremap tr :term<CR>
@@ -376,9 +366,9 @@ autocmd BufRead,BufNewFile *.md setlocal spell
 
 """"""""""plug magegement""""""""""
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin('~/.vim/plugged')
@@ -483,23 +473,20 @@ Plug 'luochen1990/rainbow'
 " wordy
 " Plug 'reedes/vim-wordy'
 
-" Bookmarks
-Plug 'kshenoy/vim-signature'
-
 " Plug 'ludovicchabant/vim-gutentags'
-Plug 'vim-scripts/taglist.vim'
+Plug 'vim-scripts/taglist.vim', { 'on': 'TlistToggle' }
 
 " switch between true and false, and also other switch(. to -> in c++)
-Plug 'AndrewRadev/switch.vim'
+Plug 'AndrewRadev/switch.vim', { 'on': 'Switch' }
 
 Plug 'machakann/vim-highlightedyank'
 
 call plug#end()
 
+
 " ================
 " === startify ===
 " ================
-" let g:startify_custom_header = [
 let g:ascii = [
 		\ '              _               _     _           ',
 		\ '             / \  _   _  __ _(_)___| |_ ___     ',
@@ -509,17 +496,24 @@ let g:ascii = [
 		\ '                        |___/                   ',
 		\ ]
 let g:startify_custom_header =
-	  \ 'startify#center(g:ascii + startify#fortune#boxed())'
+	\ 'startify#center(g:ascii + startify#fortune#boxed())'
 " let g:startify_custom_header = 'startify#center(startify#fortune#cowsay())'
-let g:startify_bookmarks = [ {'rc': '~/.vimrc'}, {'td': '~/Downloads/.todo.md'} ]
-" let g:startify_padding_left = 3
+let g:startify_bookmarks = [ {'rc': '~/.vimrc'}, {'td': '~/Downloads/.todo.md'}, {'dx': '~/Downloads/from_github/Augists.github.io/index.md'}, {'us': '~/Downloads/from_github/ZDCZ-vimrc/usage_of_vim.md'} ]
+let g:startify_padding_left = 60
 " let g:startify_files_number = 10
-let g:startify_enable_special = 1
-let g:startify_lists = [
-	  \ { 'type': 'files',     'header': ['   MRU']            },
-	  \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-	  \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-	  \ ]
+let g:startify_enable_special = 0
+let s:startify_footer = [
+	\ '----------------------------------------------------------------------------------',
+	\ '                                   Enjoy Coding!                                  ',
+	\ ]
+function! s:Startify_center(lines) abort
+    let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
+    let centered_lines = map(copy(a:lines),
+                \ 'repeat(" ", (&columns / 2) - (longest_line / 2)) . v:val')
+    return centered_lines
+endfunction
+let g:startify_custom_footer = s:Startify_center(s:startify_footer)
+nnoremap sf :Startify<CR>
 
 
 " =================
@@ -610,19 +604,6 @@ call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
 call NERDTreeHighlightFile('java', 'Magenta', 'none', '#ff00ff', '#151515')
 
 
-" ==================================
-" === Syntastic(use ale instead) ===
-" ==================================
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_check_on_wq = 0
-
-
 " ===========
 " === ale ===
 " ===========
@@ -661,24 +642,17 @@ let g:clang_format#style_options = {
             \ "Standard" : "C++11"}
 nnoremap <space>fm :set expandtab<CR>:ClangFormat<CR>
 
-            " \ "AlignTrailingComments" : "true",
             " \ "AlwaysBreakTemplateDeclarations" : "true",
             " \ "Standard" : "Latest"}
-
-" imap <Tab>   <Plug>EasyCompTabTrigger
-" imap <S-Tab> <Plug>EasyCompShiftTabTrigger
 
 
 " ===========================
 " === SnipMate & Snippets ===
 " ===========================
-" show available snips
-" use <C-R><tab> in insert mode
 " :imap <C-J> <Plug>snipMateNextOrTrigger
 " :smap <C-J> <Plug>snipMateNextOrTrigger
 " :imap <C-k> <Plug>snipMateBack
 " :smap <C-k> <Plug>snipMateBack
-" <Plug>snipMateShow
 
 
 " ==============
@@ -714,17 +688,6 @@ let g:go_doc_keywordprg_enabled = 0
 " ====================
 " === vim surround ===
 " ====================
-" Details follow on the exact semantics, but first, consider the following
-" examples.  An asterisk (*) is used to denote the cursor position.
-
-"   Old text                  Command     New text ~
-"   "Hello *world!"           ds"         Hello world!
-"   <div>Yo!*</div>           dst         Yo!
-"   [123+4*56]/2              cs])        (123+456)/2
-"   "Look ma, I'm *HTML!"     cs"<q>      <q>Look ma, I'm HTML!</q>
-"   if *x>3 {                 ysW(        if ( x>3 ) {
-"   my $str = *whee!;         vllllS'     my $str = 'whee!';
-
 " let g:surround_insert_tail = "<++>"
 
 
@@ -760,14 +723,6 @@ let g:mkdp_refresh_slow = 0
 
 
 " =====================
-" === ranger in vim ===
-" =====================
-" let g:ranger_map_keys = 0
-" map <,>r :Ranger<CR>
-" https://github.com/francoiscabrol/ranger.vim
-
-
-" =====================
 " === indent guides ===
 " =====================
 let g:indent_guides_enable_on_vim_startup = 1
@@ -784,10 +739,10 @@ let g:strip_whitespace_on_save = 1
 
 
 " Adjacent duplicate words
-" noremap <space>dw /\(\<\w\+\>\)\_s*\1
+noremap <space>dw /\(\<\w\+\>\)\_s*\1
 " Space to Tab
-" nnoremap <space>tt :%s/    /\t/g
-" vnoremap <space>tt :s/    /\t/g
+nnoremap <space>tt :%s/    /\t/g
+vnoremap <space>tt :s/    /\t/g
 
 
 " ============================
@@ -820,13 +775,7 @@ let g:highlightedyank_highlight_duration = 500
 " ==============
 " === switch ===
 " ==============
-" let g:switch_mapping = ""
-
-
-" let g:python_host_skip_check=1
-" let g:python_host_prog = '/usr/bin/python'
-" let g:python3_host_skip_check=1
-" let g:python3_host_prog = '/usr/local/bin/python3'
+nnoremap gs :Switch<CR>
 
 
 " ===============
@@ -871,17 +820,6 @@ nnoremap nd :UndotreeToggle<CR>
 " map <space>[ :cp<CR>
 
 
-" ,g generates the header guard
-" map ,g :call IncludeGuard()<CR>
-" fun! IncludeGuard()
-"    let basename = substitute(bufname(""), '.*/', '', '')
-"    let guard = '_' . substitute(toupper(basename), '\.', '_', "H")
-"    call append(0, "#ifndef " . guard)
-"    call append(1, "#define " . guard)
-"    call append( line("$"), "#endif // for #ifndef " . guard)
-" endfun
-
-
 " Compatible with ranger 1.4.2 through 1.7.*
 "
 " Add ranger as a file chooser in vim
@@ -891,34 +829,34 @@ nnoremap nd :UndotreeToggle<CR>
 " files, press enter and ranger will quit again and vim will open the selected
 " files.
 
-"function! RangeChooser()
-"    let temp = tempname()
-"    " The option "--choosefiles" was added in ranger 1.5.1. Use the next line
-"    " with ranger 1.4.2 through 1.5.0 instead.
-"    "exec 'silent !ranger --choosefile=' . shellescape(temp)
-"    if has("gui_running")
-"        exec 'silent !xterm -e ranger --choosefiles=' . shellescape(temp)
-"    else
-"        exec 'silent !ranger --choosefiles=' . shellescape(temp)
-"    endif
-"    if !filereadable(temp)
-"        redraw!
-"        " Nothing to read.
-"        return
-"    endif
-"    let names = readfile(temp)
-"    if empty(names)
-"        redraw!
-"        " Nothing to open.
-"        return
-"    endif
-"    " Edit the first item.
-"    exec 'edit ' . fnameescape(names[0])
-"    " Add any remaning items to the arg list/buffer list.
-"    for name in names[1:]
-"        exec 'argadd ' . fnameescape(name)
-"    endfor
-"    redraw!
-"endfunction
-"command! -bar RangerChooser call RangeChooser()
-"nnoremap <leader>r :<C-U>RangerChooser<CR>
+function! RangeChooser()
+	let temp = tempname()
+	" The option "--choosefiles" was added in ranger 1.5.1. Use the next line
+	" with ranger 1.4.2 through 1.5.0 instead.
+	"exec 'silent !ranger --choosefile=' . shellescape(temp)
+	if has("gui_running")
+		exec 'silent !xterm -e ranger --choosefiles=' . shellescape(temp)
+	else
+		exec 'silent !ranger --choosefiles=' . shellescape(temp)
+	endif
+	if !filereadable(temp)
+		redraw!
+		" Nothing to read.
+		return
+	endif
+	let names = readfile(temp)
+	if empty(names)
+		redraw!
+		" Nothing to open.
+		return
+	endif
+	" Edit the first item.
+	exec 'edit ' . fnameescape(names[0])
+	" Add any remaning items to the arg list/buffer list.
+	for name in names[1:]
+		exec 'argadd ' . fnameescape(name)
+	endfor
+	redraw!
+endfunction
+command! -bar RangerChooser call RangeChooser()
+nnoremap <space>r :<C-U>RangerChooser<CR>
