@@ -76,18 +76,9 @@ filetype plugin indent on
 
 """"""""""file directory""""""""""
 nnoremap cp :vert diffsplit<space>
-nnoremap nf :tabnew .<CR>
 nnoremap tt :e %:p:h/<CR>
 set autochdir
-" auto reload vimrc when editing it
-" autocmd! bufwritepost .vimrc source ~/.vimrc
 nnoremap <space>td :set splitright<CR>:vsplit<CR>:e ~/Downloads/.todo.md<CR>/TODO<CR>:vertical resize-10<CR>
-
-
-""""""""""tab management""""""""""
-nnoremap tb :tabe<CR>
-nnoremap th :-tabnext<CR>
-nnoremap tl :+tabnext<CR>
 
 
 """""""""""match"""""""""""
@@ -112,6 +103,13 @@ set rtp+=/usr/local/opt/fzf
 
 """"""""""figlet""""""""""
 nnoremap gx :r !figlet<space>
+
+
+""""""""""tab management""""""""""
+nnoremap nf :tabnew .<CR>
+nnoremap tb :tabe<CR>
+nnoremap th :-tabnext<CR>
+nnoremap tl :+tabnext<CR>
 
 
 """"""""""split screen""""""""""
@@ -211,7 +209,6 @@ inoremap <C-x> <C-x>s
 set wildmenu
 set wildmode=longest:list,full	" to be checked
 set completeopt=preview,menu
-set completeopt=longest,menu
 nnoremap N a<C-n>
 
 
@@ -224,7 +221,7 @@ vnoremap Y "+y
 " nmap <leader>p :set paste!<BAR>set paste?<CR>"
 
 
-""""""""""complie and run""""""""""
+""""""""""complie run and debug""""""""""
 map <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
@@ -268,7 +265,6 @@ func! CompileRunGcc()
 	endif
 endfunc
 
-" C,C++ debug(can use lldb)
 map <F8> :call Rungdb()<CR>
 func! Rungdb()
 	exec "w"
