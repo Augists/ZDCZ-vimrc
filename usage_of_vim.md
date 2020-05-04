@@ -7,18 +7,18 @@
 | Key         | Action                                |
 |-------------|---------------------------------------|
 | `cp`        | compare file                          |
-| `nf`        | temp file                             |
 | `tt`        | open the directory of the file(cover) |
 | `<space>rc` | open vimrc                            |
 | `<space>td` | open my vim todo                      |
 
 ## tab management
 
-| Key  | Action    |
-|------|-----------|
-| `tb` | new tab   |
-| `th` | tab left  |
-| `tl` | tab right |
+| Key  | Action                      |
+|------|-----------------------------|
+| `nf` | new tab with file selection |
+| `tb` | new tab                     |
+| `th` | tab left                    |
+| `tl` | tab right                   |
 
 ## searching
 
