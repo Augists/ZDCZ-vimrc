@@ -78,7 +78,7 @@ filetype plugin indent on
 nnoremap cp :vert diffsplit<space>
 nnoremap tt :e %:p:h/<CR>
 set autochdir
-nnoremap <space>td :set splitright<CR>:vsplit<CR>:e ~/Downloads/.todo.md<CR>/TODO<CR>:vertical resize-10<CR>
+" nnoremap <space>td :set splitright<CR>:vsplit<CR>:e ~/Downloads/.todo.md<CR>/TODO<CR>:vertical resize-10<CR>
 
 
 """""""""""match"""""""""""
@@ -149,6 +149,7 @@ nnoremap <space>s :w<CR>
 nnoremap S <nop>
 nnoremap s <nop>
 nnoremap <space>q :qa<CR>
+nnoremap <space>w :bwipe<CR>
 nnoremap ; :
 xmap ; :
 
@@ -207,7 +208,6 @@ inoremap <C-x> <C-x>s
 
 """"""""""code completion""""""""""
 set wildmenu
-set wildmode=longest:list,full	" to be checked
 set completeopt=preview,menu
 nnoremap N a<C-n>
 
@@ -215,7 +215,7 @@ nnoremap N a<C-n>
 """"""""""clipboard""""""""""
 vnoremap Y "+y
 " set clipboard=unnamed
-" set paste                   " enable paste mode
+" set paste
 " set copyindent		" copy the previous indentation on autoindenting
 " ,p toggles paste mode
 " nmap <leader>p :set paste!<BAR>set paste?<CR>"
@@ -243,10 +243,12 @@ func! CompileRunGcc()
 		"
 	elseif &filetype == 'go'
 		" exec "!time go run %"
-		"exec ":GoRun %"
-		set splitbelow
-		:sp
-		:term go run %
+		exec ":GoRun %"
+		" set splitbelow
+		" :term
+		" exec "go run %"
+		" :sp
+		" :term go run %
 	elseif &filetype == 'java'
 		" exec "!javac %"
 		exec "!time	java %<"
@@ -273,7 +275,8 @@ func! Rungdb()
 	exec "!lldb ./%<"
 endfunc
 
-nnoremap tr :term<CR>
+" nnoremap tr :term<CR>
+nnoremap tr :set splitright<CR>:vsplit<CR>:term<CR><C-w>j:q<CR>
 
 
 """"""""""history""""""""""
@@ -335,10 +338,10 @@ Plug '/usr/local/opt/fzf', { 'on': 'FZF' }
 
 Plug 'w0rp/ale'
 
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
-Plug 'garbas/vim-snipmate'
-Plug 'honza/vim-snippets'
+Plug 'MarcWeber/vim-addon-mw-utils', { 'on': [] }
+Plug 'tomtom/tlib_vim', { 'on': [] }
+Plug 'garbas/vim-snipmate', { 'on': [] }
+Plug 'honza/vim-snippets', { 'on': [] }
 
 " Plug 'ervandew/supertab'
 
@@ -364,9 +367,8 @@ Plug 'itchyny/dictionary.vim', { 'on': 'Dictionary' }
 
 " Plug 'vim-scripts/indentpython.vim'
 " Plug 'tmhedberg/SimpylFold'
-Plug 'nathanaelkane/vim-indent-guides', { 'for': ['python', 'html'] }
 
-" Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for': 'html' }
 " Plug 'xml.vim'
 " Plug 'othree/html5.vim'
 " Plug 'gko/vim-coloresque', { 'for': ['vim-plug', 'php', 'html', 'javascript', 'css', 'less'] }
@@ -390,6 +392,8 @@ Plug 'vim-scripts/taglist.vim', { 'on': 'TlistToggle' }
 Plug 'AndrewRadev/switch.vim', { 'on': 'Switch' }
 
 Plug 'machakann/vim-highlightedyank'
+
+Plug 'SpringHan/lightTodo.vim', { 'on': 'LightTodoToggle' }
 
 call plug#end()
 
@@ -437,7 +441,9 @@ let g:file_copyright_email = "awzyc2010@163.com"
 " ==============
 let g:SnazzyTransparent = 1
 
-colorscheme snazzy
+" colorscheme snazzy
+" let g:airline_theme='simple'
+" let g:airline_theme='soda'
 nnoremap sn :colorscheme snazzy<CR>:AirlineTheme soda<CR>
 
 
@@ -445,40 +451,24 @@ nnoremap sn :colorscheme snazzy<CR>:AirlineTheme soda<CR>
 " === deus ===
 " ============
 nnoremap sd :set background=dark<CR>:AirlineTheme simple<CR>:colorscheme deus<CR>:AirlineTheme deus<CR>
-" colorscheme deus
+colorscheme deus
+let g:airline_theme='deus'
 
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
-" ===============
-" === airline ===
-" ===============
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
-" let g:airline#extensions#tabline#formatter = 'unique_tail'
-" let g:airline_statusline_ontop=1
-
-" let g:airline_left_sep = '»'
-" let g:airline_left_sep = '▶'
-" let g:airline_right_sep = '«'
-" let g:airline_right_sep = '◀'
-" let g:airline_left_sep = '➤'
-
-" let g:airline_left_sep = ''
-" let g:airline_left_alt_sep = ''
-" let g:airline_right_sep = ''
-" let g:airline_right_alt_sep = ''
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
 
 " let g:airline_symbols.branch = ''
 " let g:airline_symbols.readonly = ''
 " let g:airline_symbols.linenr = '☰'
 " let g:airline_symbols.maxlinenr = ''
-
-" =====================
-" === airline theme ===
-" =====================
-" let g:airline_theme='simple'
-let g:airline_theme='soda'
-" let g:airline_theme='deus'
 
 
 " ================
@@ -550,6 +540,10 @@ nnoremap <space>fm :set expandtab<CR>:ClangFormat<CR>
 " :smap <C-J> <Plug>snipMateNextOrTrigger
 " :imap <C-k> <Plug>snipMateBack
 " :smap <C-k> <Plug>snipMateBack
+augroup load_snipmate
+    autocmd!
+    autocmd InsertEnter * call plug#load('vim-addon-mw-utils', 'tlib_vim', 'vim-snipmate', 'vim-snippets')
+augroup END
 
 
 " ==============
@@ -619,9 +613,9 @@ let g:better_whitespace_ctermcolor='red'
 let g:strip_whitespace_on_save = 1
 
 
-noremap <space>dw /\(\<\w\+\>\)\_s*\1
-nnoremap <space>tt :%s/    /\t/g
-vnoremap <space>tt :s/    /\t/g
+" noremap <space>dw /\(\<\w\+\>\)\_s*\1
+" nnoremap <space>tt :%s/    /\t/g
+" vnoremap <space>tt :s/    /\t/g
 
 
 " ============================
@@ -658,6 +652,17 @@ nnoremap R :w<CR>:e<CR>
 " === undotree ===
 " ================
 nnoremap nd :UndotreeToggle<CR>
+
+
+" ============
+" === todo ===
+" ============
+let g:LightTodoFile = $HOME.'/.todo'
+nnoremap <space>td :LightTodoToggle<CR>
+nnoremap <space>ta :LightTodoAdd<CR>
+nnoremap <space>tr :LightTodoDelete<CR>
+nnoremap <space>to :LightTodoDone<CR>
+nnoremap <space>tu :LightTodoUndone<CR>
 
 
 " replace the current word in all opened buffers
