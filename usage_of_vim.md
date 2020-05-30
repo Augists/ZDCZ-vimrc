@@ -1,6 +1,6 @@
-#USAGE OF VIM
+# USAGE OF VIM
 
-#Normal
+# Normal
 
 ## file directory
 
