@@ -1,12 +1,19 @@
-		 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-		 "          __     _____ __  __ ____   ____           "
-		 "          \ \ Y / /_ _|  \/  |  _ \ / ___|          "
-		 "           \ \ / / | || |\/| | |_) | |              "
-		 "          Z \ V /  | || |  | |  _ <| |__           "
-		 "             \_/  |___|_| C|_|_| \_\\____|          "
-		 "                                                    "
-		 """"""""""""""""""""""""""""""""""""""""""""""""""""""
-
+         """"""""""""""""""""""""""""""""""""""""""""""""""""""
+         "          __     _____ __  __ ____   ____           "
+         "          \ \ Y / /_ _|  \/  |  _ \ / ___|          "
+         "           \ \ / / | || |\/| | |_) | |              "
+         "          Z \ V /  | || |  | |  _ <| |__           "
+         "             \_/  |___|_| C|_|_| \_\\____|          "
+         "                                                    "
+         """"""""""""""""""""""""""""""""""""""""""""""""""""""
+         "             _               _     _                "
+         "            / \  _   _  __ _(_)___| |_ ___          "
+         "           / _ \| | | |/ _` | / __| __/ __|         "
+         "          / ___ \ |_| | (_| | \__ \ |_\__ \         "
+         "         /_/   \_\__,_|\__, |_|___/\__|___/         "
+         "                       |___/                        "
+         "                                                    "
+         """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 " ==================================================================== "
@@ -54,6 +61,9 @@ set listchars=tab:\|\ ,trail:▫
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
+autocmd Filetype html set tabstop=2
+autocmd Filetype html set softtabstop=2
+autocmd Filetype html set shiftwidth=2
 set wrap
 set linebreak
 set wrapmargin=2
@@ -145,9 +155,8 @@ vnoremap < <gv
 nnoremap < <<
 nnoremap > >>
 
-nnoremap <space>s :w<CR>
+nnoremap ss :w<CR>
 nnoremap S <nop>
-nnoremap s <nop>
 nnoremap <space>q :qa<CR>
 nnoremap <space>w :bwipe<CR>
 nnoremap ; :
@@ -221,7 +230,7 @@ vnoremap Y "+y
 " nmap <leader>p :set paste!<BAR>set paste?<CR>"
 
 
-""""""""""complie run and debug""""""""""
+""""""""""compile run and debug""""""""""
 map <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
 	exec "w"
@@ -292,12 +301,12 @@ set autoread
 autocmd Filetype markdown inoremap ;f <esc>/<++><CR>:nohlsearch<CR>c4l
 autocmd Filetype markdown inoremap ;w <esc>/<++><CR>:nohlsearch<CR>c4l<CR>
 autocmd Filetype markdown inoremap ;n ---<Enter><Enter>
-autocmd Filetype markdown inoremap ;b **** <++><esc>F*hi
-autocmd Filetype markdown inoremap ;s ~~~~ <++><esc>F~hi
-autocmd Filetype markdown inoremap ;i ** <++><esc>F*i
-autocmd Filetype markdown inoremap ;d `` <++><esc>F`i
+autocmd Filetype markdown inoremap ;b ****<++><esc>F*hi
+autocmd Filetype markdown inoremap ;s ~~~~<++><esc>F~hi
+autocmd Filetype markdown inoremap ;i **<++><esc>F*i
+autocmd Filetype markdown inoremap ;d ``<++><esc>F`i
 autocmd Filetype markdown inoremap ;c ```<enter><++><enter>```<enter><enter><++><esc>4kA
-autocmd Filetype markdown inoremap ;h ==== <++><esc>F=hi
+autocmd Filetype markdown inoremap ;h ====<++><esc>F=hi
 autocmd Filetype markdown inoremap ;m - [ ]<space>
 autocmd Filetype markdown inoremap ;p ![](<++>) <++><esc>F[a
 autocmd Filetype markdown inoremap ;a [](<++>) <++><esc>F[a
@@ -322,16 +331,16 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'mhinz/vim-startify'
+" Plug 'mhinz/vim-startify'
 
 Plug 'nine2/vim-copyright'
 
-Plug 'connorholyday/vim-snazzy'
+" Plug 'connorholyday/vim-snazzy'
 Plug 'ajmwagar/vim-deus'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+" Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 
 Plug '/usr/local/opt/fzf', { 'on': 'FZF' }
@@ -380,53 +389,18 @@ Plug 'tpope/vim-commentary'
 
 Plug 'ntpeters/vim-better-whitespace', { 'for': ['vim-plug', 'c', 'cpp', 'go', 'markdown', 'python', 'html', 'vim'] }
 
-Plug 'junegunn/goyo.vim'
+" Plug 'junegunn/goyo.vim'
 
 Plug 'luochen1990/rainbow'
-
-" Plug 'godlygeek/tabular' " type ;Tabularize /= to align the =
 
 " Plug 'ludovicchabant/vim-gutentags'
 Plug 'vim-scripts/taglist.vim', { 'on': 'TlistToggle' }
 
-Plug 'AndrewRadev/switch.vim', { 'on': 'Switch' }
+Plug 'AndrewRadev/switch.vim'
 
 Plug 'machakann/vim-highlightedyank'
 
-Plug 'SpringHan/lightTodo.vim', { 'on': 'LightTodoToggle' }
-
 call plug#end()
-
-
-" ================
-" === startify ===
-" ================
-let g:ascii = [
-		\ '              _               _     _           ',
-		\ '             / \  _   _  __ _(_)___| |_ ___     ',
-		\ '            / _ \| | | |/ _` | / __| __/ __|    ',
-		\ '           / ___ \ |_| | (_| | \__ \ |_\__ \    ',
-		\ '          /_/   \_\__,_|\__, |_|___/\__|___/    ',
-		\ '                        |___/                   ',
-		\ ]
-let g:startify_custom_header =
-	\ 'startify#center(g:ascii + startify#fortune#boxed())'
-let g:startify_bookmarks = [ {'rc': '~/.vimrc'}, {'td': '~/Downloads/.todo.md'}, {'dx': '~/Downloads/from_github/Augists.github.io/index.md'}, {'us': '~/Downloads/from_github/ZDCZ-vimrc/usage_of_vim.md'} ]
-let g:startify_padding_left = 60
-" let g:startify_files_number = 10
-let g:startify_enable_special = 0
-let s:startify_footer = [
-	\ '----------------------------------------------------------------------------------',
-	\ '                                   Enjoy Coding!                                  ',
-	\ ]
-function! s:Startify_center(lines) abort
-    let longest_line   = max(map(copy(a:lines), 'strwidth(v:val)'))
-    let centered_lines = map(copy(a:lines),
-                \ 'repeat(" ", (&columns / 2) - (longest_line / 2)) . v:val')
-    return centered_lines
-endfunction
-let g:startify_custom_footer = s:Startify_center(s:startify_footer)
-nnoremap sf :Startify<CR>
 
 
 " =================
@@ -439,12 +413,12 @@ let g:file_copyright_email = "awzyc2010@163.com"
 " ==============
 " === snazzy ===
 " ==============
-let g:SnazzyTransparent = 1
+" let g:SnazzyTransparent = 1
 
 " colorscheme snazzy
 " let g:airline_theme='simple'
 " let g:airline_theme='soda'
-nnoremap sn :colorscheme snazzy<CR>:AirlineTheme soda<CR>
+" nnoremap sn :colorscheme snazzy<CR>:AirlineTheme soda<CR>
 
 
 " ============
@@ -465,30 +439,27 @@ let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 
-" let g:airline_symbols.branch = ''
-" let g:airline_symbols.readonly = ''
-" let g:airline_symbols.linenr = '☰'
-" let g:airline_symbols.maxlinenr = ''
+nnoremap n? :let g:airline_left_sep = ''<CR>:let g:airline_left_alt_sep = ''<CR>:let g:airline_right_sep = ''<CR>:let g:airline_right_alt_sep = ''<CR>:let g:airline#extensions#tabline#left_sep = ''<CR>:AirlineRefresh<CR>
 
 
 " ================
 " === NERDTree ===
 " ================
-noremap nt :NERDTreeToggle<CR>
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-	exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-	exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
+" noremap nt :NERDTreeToggle<CR>
+" function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+" 	exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+" 	exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+" endfunction
 
-call NERDTreeHighlightFile('cpp', 'blue', 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('c', 'green', 'none', '#3366FF', '#151515')
-call NERDTreeHighlightFile('md', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('html', 'green', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('py', 'green', 'none', 'yellow', '#151515')
-call NERDTreeHighlightFile('go', 'Red', 'none', 'red', '#151515')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
-call NERDTreeHighlightFile('java', 'Magenta', 'none', '#ff00ff', '#151515')
+" call NERDTreeHighlightFile('cpp', 'blue', 'none', '#3366FF', '#151515')
+" call NERDTreeHighlightFile('c', 'green', 'none', '#3366FF', '#151515')
+" call NERDTreeHighlightFile('md', 'yellow', 'none', 'yellow', '#151515')
+" call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+" call NERDTreeHighlightFile('html', 'green', 'none', 'yellow', '#151515')
+" call NERDTreeHighlightFile('py', 'green', 'none', 'yellow', '#151515')
+" call NERDTreeHighlightFile('go', 'Red', 'none', 'red', '#151515')
+" call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+" call NERDTreeHighlightFile('java', 'Magenta', 'none', '#ff00ff', '#151515')
 
 
 " ===========
@@ -579,8 +550,8 @@ let g:go_doc_keywordprg_enabled = 0
 " ============
 " === goyo ===
 " ============
-nnoremap <space>gy :Goyo<CR>
-let g:goyo_width = 120
+" nnoremap <space>gy :Goyo<CR>
+" let g:goyo_width = 120
 
 
 " ======================
@@ -613,9 +584,9 @@ let g:better_whitespace_ctermcolor='red'
 let g:strip_whitespace_on_save = 1
 
 
-" noremap <space>dw /\(\<\w\+\>\)\_s*\1
-" nnoremap <space>tt :%s/    /\t/g
-" vnoremap <space>tt :s/    /\t/g
+noremap <space>dw /\(\<\w\+\>\)\_s*\1
+nnoremap <space>tt :%s/    /\t/g
+vnoremap <space>tt :s/    /\t/g
 
 
 " ============================
@@ -633,14 +604,14 @@ let g:highlightedyank_highlight_duration = 500
 " ==============
 " === switch ===
 " ==============
-nnoremap gs :Switch<CR>
+" nnoremap gs :Switch<CR>
 
 
 " ===============
 " === taglist ===
 " ===============
 let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
-nnoremap <silent> tl :TlistToggle<CR>
+nnoremap <silent> <space>tl :TlistToggle<CR>
 let g:Tlist_Use_Right_Window = 1
 let g:Tlist_Exit_OnlyWindow = 1
 " let g:Tlist_Auto_Open = 1
@@ -652,17 +623,6 @@ nnoremap R :w<CR>:e<CR>
 " === undotree ===
 " ================
 nnoremap nd :UndotreeToggle<CR>
-
-
-" ============
-" === todo ===
-" ============
-let g:LightTodoFile = $HOME.'/.todo'
-nnoremap <space>td :LightTodoToggle<CR>
-nnoremap <space>ta :LightTodoAdd<CR>
-nnoremap <space>tr :LightTodoDelete<CR>
-nnoremap <space>to :LightTodoDone<CR>
-nnoremap <space>tu :LightTodoUndone<CR>
 
 
 " replace the current word in all opened buffers
