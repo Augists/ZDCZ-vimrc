@@ -145,8 +145,8 @@ nnoremap <left> :vertical resize-5<CR>
 """"""""""shortcut for quickly move and save""""""""""
 noremap K 5k
 noremap J 5j
-noremap W 5w
-noremap B 5b
+" noremap W 5w
+" noremap B 5b
 noremap H 0
 noremap L $
 
@@ -166,6 +166,8 @@ inoremap <C-c> <Esc>zza
 
 " inoremap <C-l> <esc>
 " vnoremap <C-l> <esc>
+
+" nnoremap <C-o> o<Esc>k
 
 
 """"""""""no temp file""""""""""
@@ -244,7 +246,7 @@ func! CompileRunGcc()
 		" :term ./%<
 		" :res -10
 		"
-		exec "!g++ % -o %<"
+		exec "!g++ -std=c++2a % -o %<"
 		exec "!time ./%<"
 		"
 		":sp
@@ -498,7 +500,8 @@ let g:clang_format#style_options = {
             \ "AlignTrailingComments" : "true",
             \ "ColumnLimit" : 0,
             \ "Standard" : "C++11"}
-nnoremap <space>fm :set expandtab<CR>:ClangFormat<CR>
+" nnoremap <space>fm :set expandtab<CR>:ClangFormat<CR>
+nnoremap <space>fm :set expandtab<CR>:ClangFormat<CR>:set noexpandtab<CR>ggVG=<C-o>
 
             " \ "AlwaysBreakTemplateDeclarations" : "true",
             " \ "Standard" : "Latest"}
