@@ -1,29 +1,49 @@
 # ZDCZ-vimrc
 
-Here is my [**.vimrc**](https://github.com/Augists-ZDCZ/ZDCZ-vimrc/blob/master/new.vimrc)
+Here is my [init.vim](https://github.com/Augists/ZDCZ-vimrc/tree/coc/neovim)
 
-I use **vim-plug** to manage my plugins of vim
+## Main Features
 
-## preview
+* vim-plug
+* coc
 
-![1](https://tva1.sinaimg.cn/large/007S8ZIlly1gdq5z91ftjj31c00u0hdx.jpg)
+## Preview
 
-![2](https://tva1.sinaimg.cn/large/00831rSTly1gdoltzyalvj31c00u0u11.jpg)
+![1](https://i.loli.net/2021/08/26/MTWfFIHwO5uBNmv.png)
 
-## version
+## Infomation
 
 == **MY SYSTEM** ==
 
-macOS Catalina 10.15.4
+* macOS
+* neovim 0.5 with python support
 
-vim 8.1.2292
+## Install
 
-ranger 1.9.3 (python version 2.7.16 default by Apple)
+### vim-plug
 
-Also python version 3.8.1
+```bash
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+```
 
-But no python support for vim😂
+if cannot access, open the url on your browser and copy
 
-## usage
+### python-support
 
-Now here is a markdown file about the [**usage of my vim**](https://github.com/Augists-ZDCZ/ZDCZ-vimrc/blob/master/usage_of_vim.md). 
+```bash
+pip3 install pynvim
+```
+
+then `:checkhealth` in neovim
+
+### configuration
+
+```bash
+cd $HOME/.config
+git clone https://github.com/Augists/ZDCZ-vimrc.git
+git checkout coc
+nvim
+```
+
+and it will automatically install vim plugins and coc-plugins
