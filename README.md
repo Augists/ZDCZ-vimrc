@@ -1,29 +1,60 @@
-# ZDCZ-vimrc
+<center><b>ZDCZ-vimrc</b></center>
 
-Here is my [**.vimrc**](https://github.com/Augists-ZDCZ/ZDCZ-vimrc/blob/master/new.vimrc)
+Here is my [init.lua](https://github.com/Augists/ZDCZ-vimrc/tree/lua/nvim)
 
-I use **vim-plug** to manage my plugins of vim
+## Main Features
 
-## preview
+* packer.nvim
+* lua (based on init.lua from [glepnir](https://github.com/glepnir/nvim))
 
-![1](https://tva1.sinaimg.cn/large/007S8ZIlly1gdq5z91ftjj31c00u0hdx.jpg)
+## Preview
 
-![2](https://tva1.sinaimg.cn/large/00831rSTly1gdoltzyalvj31c00u0u11.jpg)
+![1](https://i.loli.net/2021/08/26/esJ9XYoAdzxGvnw.png)
 
-## version
+![2](https://i.loli.net/2021/08/26/2H6nUzw8Ycb1D3s.png)
+
+![3](https://i.loli.net/2021/08/26/pP18GwuYAVfcUFy.png)
+
+![4](https://i.loli.net/2021/08/26/42pCOPdsjrnZLwF.png)
+
+## Install
+
+```bash
+cd $HOME/.config
+git clone git@github.com:Augists/ZDCZ-vimrc.git
+nvim
+```
+
+it will automatically install packer.nvim and the plug
+
+I fixed plenty of bugs and let it flexible to configurate
+
+## How to configurate
+
+lua/core/init.lua
+
+lua/core/global.lua
+
+lua/core/pack.lua
+
+lua/module/****
+
+lua/core/options.lua
+
+lua/core/mapping.lua
+
+lua/keymap/bind.lua
+
+lua/keymap/init.lua
+
+lua/keymap/config.lua
+
+lua/core/event.lua
+
+## System Information
 
 == **MY SYSTEM** ==
 
-macOS Catalina 10.15.4
+macOS Big Sur
 
-vim 8.1.2292
-
-ranger 1.9.3 (python version 2.7.16 default by Apple)
-
-Also python version 3.8.1
-
-But no python support for vim😂
-
-## usage
-
-Now here is a markdown file about the [**usage of my vim**](https://github.com/Augists-ZDCZ/ZDCZ-vimrc/blob/master/usage_of_vim.md). 
+neovim 0.5
