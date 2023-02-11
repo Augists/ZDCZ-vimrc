@@ -1,5 +1,16 @@
 # ZDCZ-vimrc
 
+## Four Branches
+
+* [vimrc](https://github.com/Augists/ZDCZ-vimrc)
+* [coc](https://github.com/Augists/ZDCZ-vimrc/tree/coc)
+* [basic lua](https://github.com/Augists/ZDCZ-vimrc/tree/lua)
+* [VapourNvim](https://github.com/Augists/ZDCZ-vimrc/tree/VapourNvim) <- Using now
+
+---
+
+## vimrc version
+
 Here is my [**.vimrc**](https://github.com/Augists-ZDCZ/ZDCZ-vimrc/blob/master/new.vimrc)
 
 I use **vim-plug** to manage my plugins of vim
